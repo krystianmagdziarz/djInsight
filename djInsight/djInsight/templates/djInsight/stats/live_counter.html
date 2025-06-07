@@ -1,0 +1,42 @@
+{% load djInsight_tags %}
+<div class="djinsight-live-counter">
+    <div class="djinsight-live-title">
+        <strong>📊 Live Statistics</strong>
+    </div>
+    {% page_stats_display obj=obj show_unique=show_unique refresh_interval=refresh_interval %}
+</div>
+
+<style>
+.djinsight-live-counter {
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    padding: 1rem;
+    margin: 1rem 0;
+}
+
+.djinsight-live-title {
+    margin-bottom: 0.5rem;
+    color: #495057;
+    font-size: 0.9rem;
+}
+
+.djinsight-page-stats {
+    background: white;
+    padding: 0.75rem;
+    border-radius: 4px;
+    border: 1px solid #e9ecef;
+    margin-top: 0.5rem;
+}
+
+.djinsight-page-stats span {
+    margin-right: 1rem;
+    color: #495057;
+}
+
+.djinsight-total-count,
+.djinsight-unique-count {
+    font-weight: 600;
+    color: #007bff !important;
+}
+</style> 

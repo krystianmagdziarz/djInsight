@@ -1,0 +1,6 @@
+{% if last_viewed_at %}
+<div class="djinsight-stat-item djinsight-last-viewed">
+    <strong>Last Viewed:</strong>
+    <span class="djinsight-stat-value">{{ last_viewed_at|date:"M d, Y H:i" }}</span>
+</div>
+{% endif %} 
