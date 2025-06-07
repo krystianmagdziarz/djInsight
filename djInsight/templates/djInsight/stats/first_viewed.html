@@ -1,6 +1,11 @@
-{% if first_viewed_at %}
+{% load djInsight_tags %}
+{% if no_permission %}
+    <!-- djInsight: Access denied -->
+{% else %}
 <div class="djinsight-stat-item djinsight-first-viewed">
     <strong>First Viewed:</strong>
-    <span class="djinsight-stat-value">{{ first_viewed_at|date:"M d, Y H:i" }}</span>
+    <span class="djinsight-stat-value">
+        {% if first_viewed_at %}{{ first_viewed_at|date:"M j, Y H:i" }}{% else %}Never{% endif %}
+    </span>
 </div>
 {% endif %} 

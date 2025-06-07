@@ -2,6 +2,73 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.4] - 2025-01-27
+
+### Added
+- **⏰ Configurable Celery Task Schedules**
+  - New environment variables for task scheduling configuration
+  - `DJINSIGHT_PROCESS_SCHEDULE` - Configure page view processing frequency
+  - `DJINSIGHT_SUMMARIES_SCHEDULE` - Configure summary generation frequency  
+  - `DJINSIGHT_CLEANUP_SCHEDULE` - Configure cleanup task frequency
+  - Support for seconds, cron minutes, and full cron expressions
+
+### Changed
+- **🔄 Default Task Schedules**
+  - Process page views: Changed from every 5 minutes to every 10 seconds
+  - Generate summaries: Changed from daily at 1:00 AM to every 10 minutes
+  - Cleanup old data: Changed from weekly to daily at 1:00 AM
+  - More frequent processing for better real-time performance
+
+### Enhanced
+- **🛠️ Schedule Flexibility**
+  - Smart schedule parsing function `get_schedule_from_env()`
+  - Support for multiple schedule formats:
+    - Simple seconds: `"10"` = every 10 seconds
+    - Cron minutes: `"*/5"` = every 5 minutes
+    - Full cron: `"0 1 * * *"` = daily at 1:00 AM
+  - Backward compatibility with existing configurations
+
+### Documentation
+- **📖 Configuration Guide Updates**
+  - Complete documentation of new schedule settings
+  - Environment variable configuration examples
+  - Development, production, and Docker configuration samples
+  - Schedule format reference with cron explanations
+  - Integration examples for different deployment scenarios
+
+## [0.1.3] - 2025-01-27
+
+### Added
+- **🔒 Permission Control System**
+  - New `DJINSIGHT_ADMIN_ONLY` setting to restrict statistics access
+  - Configurable access control for all template tags and API endpoints
+  - Staff-only mode: only authenticated staff users can view statistics
+  - Automatic permission checks in all template tags
+  - Protected API endpoints with `@user_passes_test` decorator
+
+### Enhanced
+- **🛡️ Security Features**
+  - Template-level permission validation
+  - Graceful handling of permission denied scenarios
+  - "Access denied" messages for unauthorized users
+  - Backward compatibility with existing installations (default: open access)
+
+### Documentation
+- **📖 Permission Control Guide**
+  - Complete documentation for permission system
+  - Usage examples and configuration options
+  - Security considerations and best practices
+  - Migration guide for existing installations
+  - Troubleshooting section for common issues
+
+### Technical Details
+- **🔧 Implementation**
+  - `check_stats_permission()` function for view-level protection
+  - `_check_stats_permission()` function for template-level protection
+  - Updated all template tags to respect permission settings
+  - Enhanced template rendering with `no_permission` flag
+  - Comprehensive test suite for permission functionality
+
 ## [0.1.2] - 2025-06-07
 
 ### Added
@@ -151,4 +218,4 @@ When contributing to this project, please:
 2. Update version numbers in `setup.py`, `pyproject.toml`, and `__init__.py`
 3. Create a git tag for the release
 4. Build and upload to PyPI
-5. Update documentation 
+5. Update documentation

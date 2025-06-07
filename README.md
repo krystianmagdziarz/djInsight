@@ -58,6 +58,7 @@ djInsight implements a **two-tier architecture** for maximum performance and rel
 - **⚡ Real-time Tracking**: JavaScript-based view counting with async Redis storage
 - **🚄 High Performance**: Redis pipeline for fast data writes, Celery for background processing
 - **👥 Session-based Unique Visitors**: Accurate unique view counting using Django sessions
+- **🔒 Permission Control**: Configurable access restrictions for statistics
 - **🏷️ Template Tags**: Easy integration with simple template tags
 - **📈 Live Statistics**: Real-time stats display with auto-refresh
 - **🔄 Automatic Data Processing**: Background tasks for Redis → Database sync
@@ -175,6 +176,7 @@ Add tracking to your templates:
 - **📖 [Complete Documentation](docs/README.md)** - Full documentation index
 - **📦 [Installation Guide](docs/installation.md)** - Step-by-step setup
 - **⚡ [Quick Start](docs/quick-start.md)** - Get running in 5 minutes
+- **🔒 [Permission Control](docs/permission-control.md)** - Access control and security
 - **🏷️ [Template Tags](docs/template-tags.md)** - Complete reference
 - **🎨 [Template Examples](docs/template-examples.md)** - Implementation examples
 - **🔧 [Configuration](docs/configuration.md)** - Advanced settings

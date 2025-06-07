@@ -4,6 +4,7 @@ import uuid
 
 import redis
 from django.conf import settings
+from django.contrib.auth.decorators import user_passes_test
 from django.core.exceptions import ValidationError
 from django.http import JsonResponse
 from django.utils import timezone
@@ -13,6 +14,22 @@ from django.views.decorators.http import require_POST
 from redis.exceptions import ConnectionError, TimeoutError
 
 logger = logging.getLogger(__name__)
+
+
+def check_stats_permission(user):
+    """
+    Check if user has permission to view statistics.
+
+    If DJINSIGHT_ADMIN_ONLY is True, only staff users can view stats.
+    Otherwise, any authenticated user can view stats.
+    """
+    admin_only = getattr(settings, "DJINSIGHT_ADMIN_ONLY", False)
+
+    if admin_only:
+        return user.is_authenticated and user.is_staff
+    else:
+        return True  # Allow all users when admin_only is False
+
 
 # Initialize Redis connection with error handling
 try:
@@ -200,6 +217,7 @@ def record_page_view(request):
         )
 
 
+@user_passes_test(check_stats_permission, login_url=None)
 @csrf_exempt
 @require_POST
 @never_cache

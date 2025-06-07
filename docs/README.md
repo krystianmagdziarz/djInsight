@@ -12,6 +12,7 @@ Complete documentation for djInsight - a high-performance Django/Wagtail analyti
 ### 📖 User Guide  
 - [🏷️ Template Tags](template-tags.md) - Complete template tags reference
 - [📊 Analytics Usage](analytics.md) - How to use analytics features
+- [🔒 Permission Control](permission-control.md) - Access control and security
 - [🎨 Template Examples](template-examples.md) - Ready-to-use template examples
 
 ### 🔧 Advanced Topics

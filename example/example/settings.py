@@ -111,6 +111,13 @@ DJINSIGHT_ENABLE_TRACKING = True
 DJINSIGHT_REDIS_KEY_PREFIX = "djinsight:"
 DJINSIGHT_CLEANUP_DAYS = 90
 
+# Example environment variable settings for Celery schedules:
+# DJINSIGHT_PROCESS_SCHEDULE="30"        # Every 30 seconds (dev mode)
+# DJINSIGHT_SUMMARIES_SCHEDULE="*/5"     # Every 5 minutes (dev mode)
+# DJINSIGHT_CLEANUP_SCHEDULE="0 0 * * *"   # Daily at midnight
+
+# DJINSIGHT_ADMIN_ONLY = True
+
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
 

@@ -1,5 +1,9 @@
 {% load djInsight_tags %}
+{% if no_permission %}
+    <!-- djInsight: Access denied -->
+{% else %}
 <div class="djinsight-stat-item djinsight-total-views">
     <strong>Total Views:</strong>
     <span class="djinsight-stat-value">{{ total_views|format_view_count }}</span>
-</div> 
+</div>
+{% endif %} 

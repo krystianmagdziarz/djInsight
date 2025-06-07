@@ -119,7 +119,7 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('djInsight/', include('djInsight.urls')),
+    path('djinsight/', include('djInsight.urls')),
     # ... your other URLs
 ]
 ```
@@ -165,6 +165,27 @@ celery -A your_project worker --loglevel=info
 # Start beat scheduler (for periodic tasks)
 celery -A your_project beat --loglevel=info
 ```
+
+### ⏰ Optional: Configure Task Schedules
+
+djInsight uses these default schedules:
+- **Process page views**: Every 10 seconds
+- **Generate summaries**: Every 10 minutes
+- **Cleanup old data**: Daily at 1:00 AM
+
+To customize, set environment variables before starting Celery:
+
+```bash
+# Example custom schedules
+DJINSIGHT_PROCESS_SCHEDULE="30"        # Every 30 seconds
+DJINSIGHT_SUMMARIES_SCHEDULE="*/15"    # Every 15 minutes
+DJINSIGHT_CLEANUP_SCHEDULE="0 2 * * *"   # Daily at 2:00 AM
+
+# Then start Celery beat
+celery -A your_project beat --loglevel=info
+```
+
+📖 **See:** [Configuration Guide](configuration.md#celery-schedule-settings) for detailed schedule options.
 
 ## ✅ Verify Installation
 

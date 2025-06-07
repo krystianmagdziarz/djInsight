@@ -61,6 +61,24 @@ def _get_object_from_context(context, obj=None):
     return None
 
 
+def _check_stats_permission(request):
+    """
+    Check if current user has permission to view statistics.
+
+    If DJINSIGHT_ADMIN_ONLY is True, only staff users can view stats.
+    Otherwise, all users can view stats.
+    """
+    admin_only = getattr(settings, "DJINSIGHT_ADMIN_ONLY", False)
+
+    if admin_only and request:
+        user = getattr(request, "user", None)
+        if user:
+            return user.is_authenticated and user.is_staff
+        return False
+
+    return True  # Allow all users when admin_only is False or no request
+
+
 @register.simple_tag(takes_context=True)
 def page_view_tracker(context, obj=None, async_load=True, debug=False):
     """
@@ -125,6 +143,11 @@ def page_stats_display(context, obj=None, show_unique=True, refresh_interval=Non
     {% page_stats_display %}
     {% page_stats_display obj=article show_unique=False refresh_interval=30 %}
     """
+    # Check permissions first
+    request = context.get("request")
+    if not _check_stats_permission(request):
+        return ""
+
     obj = _get_object_from_context(context, obj)
     if not obj:
         return ""
@@ -183,6 +206,11 @@ def format_view_count(count):
 @register.inclusion_tag("djInsight/stats/total_views.html", takes_context=True)
 def total_views_stat(context, obj=None):
     """Display total views statistic"""
+    # Check permissions first
+    request = context.get("request")
+    if not _check_stats_permission(request):
+        return {"total_views": 0, "obj": None, "no_permission": True}
+
     obj = _get_object_from_context(context, obj)
     return {
         "total_views": getattr(obj, "total_views", 0) if obj else 0,
@@ -193,6 +221,11 @@ def total_views_stat(context, obj=None):
 @register.inclusion_tag("djInsight/stats/unique_views.html", takes_context=True)
 def unique_views_stat(context, obj=None):
     """Display unique views statistic"""
+    # Check permissions first
+    request = context.get("request")
+    if not _check_stats_permission(request):
+        return {"unique_views": 0, "obj": None, "no_permission": True}
+
     obj = _get_object_from_context(context, obj)
     return {
         "unique_views": getattr(obj, "unique_views", 0) if obj else 0,
@@ -203,6 +236,11 @@ def unique_views_stat(context, obj=None):
 @register.inclusion_tag("djInsight/stats/last_viewed.html", takes_context=True)
 def last_viewed_stat(context, obj=None):
     """Display last viewed statistic"""
+    # Check permissions first
+    request = context.get("request")
+    if not _check_stats_permission(request):
+        return {"last_viewed_at": None, "obj": None, "no_permission": True}
+
     obj = _get_object_from_context(context, obj)
     return {
         "last_viewed_at": getattr(obj, "last_viewed_at", None) if obj else None,
@@ -213,6 +251,11 @@ def last_viewed_stat(context, obj=None):
 @register.inclusion_tag("djInsight/stats/first_viewed.html", takes_context=True)
 def first_viewed_stat(context, obj=None):
     """Display first viewed statistic"""
+    # Check permissions first
+    request = context.get("request")
+    if not _check_stats_permission(request):
+        return {"first_viewed_at": None, "obj": None, "no_permission": True}
+
     obj = _get_object_from_context(context, obj)
     return {
         "first_viewed_at": getattr(obj, "first_viewed_at", None) if obj else None,
@@ -223,6 +266,11 @@ def first_viewed_stat(context, obj=None):
 @register.inclusion_tag("djInsight/stats/views_today.html", takes_context=True)
 def views_today_stat(context, obj=None):
     """Display views today statistic"""
+    # Check permissions first
+    request = context.get("request")
+    if not _check_stats_permission(request):
+        return {"views_today": 0, "obj": None, "no_permission": True}
+
     obj = _get_object_from_context(context, obj)
     views_today = 0
     if obj and hasattr(obj, "get_views_today"):
@@ -240,6 +288,11 @@ def views_today_stat(context, obj=None):
 @register.inclusion_tag("djInsight/stats/views_week.html", takes_context=True)
 def views_week_stat(context, obj=None):
     """Display views this week statistic"""
+    # Check permissions first
+    request = context.get("request")
+    if not _check_stats_permission(request):
+        return {"views_this_week": 0, "obj": None, "no_permission": True}
+
     obj = _get_object_from_context(context, obj)
     views_this_week = 0
     if obj and hasattr(obj, "get_views_this_week"):
@@ -257,6 +310,11 @@ def views_week_stat(context, obj=None):
 @register.inclusion_tag("djInsight/stats/views_month.html", takes_context=True)
 def views_month_stat(context, obj=None):
     """Display views this month statistic"""
+    # Check permissions first
+    request = context.get("request")
+    if not _check_stats_permission(request):
+        return {"views_this_month": 0, "obj": None, "no_permission": True}
+
     obj = _get_object_from_context(context, obj)
     views_this_month = 0
     if obj and hasattr(obj, "get_views_this_month"):
@@ -274,6 +332,11 @@ def views_month_stat(context, obj=None):
 @register.inclusion_tag("djInsight/stats/live_counter.html", takes_context=True)
 def live_stats_counter(context, obj=None, show_unique=True, refresh_interval=30):
     """Display live statistics counter with auto-refresh"""
+    # Check permissions first
+    request = context.get("request")
+    if not _check_stats_permission(request):
+        return {"obj": None, "no_permission": True}
+
     obj = _get_object_from_context(context, obj)
     return {
         "obj": obj,
@@ -293,6 +356,11 @@ def page_analytics_widget(context, obj=None, period="week"):
     {% page_analytics_widget %}
     {% page_analytics_widget obj=article period='month' %}
     """
+    # Check permissions first
+    request = context.get("request")
+    if not _check_stats_permission(request):
+        return {"obj": None, "has_stats": False, "no_permission": True}
+
     obj = _get_object_from_context(context, obj)
 
     if not obj:

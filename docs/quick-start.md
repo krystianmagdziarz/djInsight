@@ -135,6 +135,27 @@ celery -A your_project worker --loglevel=info
 celery -A your_project beat --loglevel=info
 ```
 
+### ⏰ Optional: Configure Task Schedules
+
+By default, djInsight runs background tasks with these schedules:
+- **Process views**: Every 10 seconds
+- **Generate summaries**: Every 10 minutes  
+- **Cleanup old data**: Daily at 1:00 AM
+
+To customize schedules, set environment variables:
+
+```bash
+# Custom schedule examples
+export DJINSIGHT_PROCESS_SCHEDULE="30"        # Every 30 seconds
+export DJINSIGHT_SUMMARIES_SCHEDULE="*/5"     # Every 5 minutes
+export DJINSIGHT_CLEANUP_SCHEDULE="0 2 * * *"   # Daily at 2:00 AM
+
+# Then restart Celery beat
+celery -A your_project beat --loglevel=info
+```
+
+📖 **See:** [Configuration Guide](configuration.md#celery-schedule-settings) for more schedule options.
+
 ## ✅ Step 5: Test It Works
 
 1. **Visit your page** - Go to a page with djInsight tracking
@@ -296,5 +317,6 @@ class Course(models.Model, PageViewStatisticsMixin):
 
 - 📖 [Template Tags Reference](template-tags.md) - Complete template tags documentation
 - 🎨 [Template Examples](template-examples.md) - More implementation examples  
+- 🔒 [Permission Control](permission-control.md) - Access control and security
 - 🔧 [Configuration](configuration.md) - Advanced configuration options
 - 📊 [Analytics Usage](analytics.md) - Advanced analytics features 

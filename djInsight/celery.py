@@ -23,11 +23,57 @@ app.config_from_object("django.conf:settings", namespace="CELERY")
 # Load task modules from all registered Django app configs.
 app.autodiscover_tasks()
 
-# Periodic tasks configuration
+
+# Helper function to parse cron schedule from environment variables
+def get_schedule_from_env(env_var, default_schedule):
+    """
+    Parse schedule from environment variable or return default.
+
+    Environment variable can be:
+    - "10" for every 10 seconds
+    - "*/5" for every 5 minutes (cron format)
+    - "0 1 * * *" for full cron expression
+    """
+    schedule_str = os.environ.get(env_var, None)
+    if not schedule_str:
+        return default_schedule
+
+    # If it's just a number, treat as seconds
+    if schedule_str.isdigit():
+        return int(schedule_str)
+
+    # If it contains spaces, treat as full cron expression
+    if " " in schedule_str:
+        parts = schedule_str.split()
+        if len(parts) == 5:
+            minute, hour, day, month, day_of_week = parts
+            return crontab(
+                minute=minute,
+                hour=hour,
+                day_of_month=day,
+                month_of_year=month,
+                day_of_week=day_of_week,
+            )
+
+    # If it contains */, treat as minute interval
+    if "*/" in schedule_str:
+        return crontab(minute=schedule_str)
+
+    # If it's a single number without *, treat as minute interval
+    if schedule_str.isdigit():
+        return crontab(minute=f"*/{schedule_str}")
+
+    return default_schedule
+
+
+# Periodic tasks configuration with environment variable support
 app.conf.beat_schedule = {
     "process-page-views": {
         "task": "djInsight.tasks.process_page_views_task",
-        "schedule": crontab(minute="*/5"),  # Every 5 minutes
+        "schedule": get_schedule_from_env(
+            "DJINSIGHT_PROCESS_SCHEDULE",
+            10,  # Default: every 10 seconds
+        ),
         "kwargs": {
             "batch_size": getattr(settings, "DJINSIGHT_BATCH_SIZE", 1000),
             "max_records": getattr(settings, "DJINSIGHT_MAX_RECORDS", 10000),
@@ -35,16 +81,20 @@ app.conf.beat_schedule = {
     },
     "generate-daily-summaries": {
         "task": "djInsight.tasks.generate_daily_summaries_task",
-        "schedule": crontab(hour=1, minute=0),  # Daily at 1:00 AM
+        "schedule": get_schedule_from_env(
+            "DJINSIGHT_SUMMARIES_SCHEDULE",
+            crontab(minute="*/10"),  # Default: every 10 minutes
+        ),
         "kwargs": {
             "days_back": getattr(settings, "DJINSIGHT_SUMMARY_DAYS_BACK", 7),
         },
     },
     "cleanup-old-data": {
         "task": "djInsight.tasks.cleanup_old_data_task",
-        "schedule": crontab(
-            hour=2, minute=0, day_of_week=0
-        ),  # Weekly on Sunday at 2:00 AM
+        "schedule": get_schedule_from_env(
+            "DJINSIGHT_CLEANUP_SCHEDULE",
+            crontab(hour=1, minute=0),  # Default: daily at 1:00 AM
+        ),
         "kwargs": {
             "days_to_keep": getattr(settings, "DJINSIGHT_DAYS_TO_KEEP", 90),
         },
@@ -105,4 +155,9 @@ DJINSIGHT_REDIS_EXPIRATION = 60 * 60 * 24 * 7  # 7 days
 
 # Enable/disable tracking
 DJINSIGHT_ENABLE_TRACKING = True
+
+# Celery Schedule Configuration (Environment Variables)
+# DJINSIGHT_PROCESS_SCHEDULE = "10"        # Every 10 seconds (default)
+# DJINSIGHT_SUMMARIES_SCHEDULE = "*/10"    # Every 10 minutes (default)
+# DJINSIGHT_CLEANUP_SCHEDULE = "0 1 * * *"  # Daily at 1:00 AM (default)
 """

@@ -1,6 +1,22 @@
 {% load djInsight_tags %}
 
-{% if has_stats and obj %}
+{% if no_permission %}
+<div class="djinsight-no-permission">
+    <p>🔒 Access to analytics is restricted to administrators.</p>
+    <style>
+    .djinsight-no-permission {
+        background: #fff3cd;
+        border: 1px solid #ffeaa7;
+        border-radius: 8px;
+        padding: 1rem;
+        margin: 1rem 0;
+        text-align: center;
+        color: #856404;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    </style>
+</div>
+{% elif has_stats and obj %}
 <div class="djinsight-analytics-widget">
     <h3>{{ display_name }} - Analytics</h3>
     
