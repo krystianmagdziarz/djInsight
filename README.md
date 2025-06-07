@@ -663,6 +663,68 @@ For existing Wagtail users, these aliases are provided:
 - **Data Aggregation**: Daily summaries reduce query complexity
 - **Automatic Cleanup**: Keeps database size manageable
 
+## Redis Key Structure
+
+djInsight uses Redis for high-performance real-time analytics with the following key structure:
+
+### View Data Keys
+Individual page view records with complete metadata:
+```
+djinsight:12345678-abcd-1234-5678-abcdef123456
+```
+Each key contains JSON data with page_id, content_type, session, IP, timestamp, etc.
+
+### Counter Keys
+For tracking total views with content type identification:
+```
+djinsight:counter:blog.article:5        # New format (recommended)
+djinsight:counter:5                      # Legacy format (backward compatibility)
+```
+
+### Unique Counter Keys
+For tracking unique visitors per content:
+```
+djinsight:unique_counter:blog.article:5  # New format (recommended)
+djinsight:unique_counter:5               # Legacy format (backward compatibility)
+```
+
+### Session Tracking Keys
+To prevent double-counting views from the same session:
+```
+djinsight:session:abc123:page:5
+```
+
+### Analysis Commands
+
+Use the included management command to analyze your Redis keys:
+
+```bash
+# Analyze Redis key structure and identify object types
+python manage.py analyze_redis
+
+# Sample output:
+# Redis Key Analysis:
+# Object ID 5: blog.article - "Article Title" (15 total views)
+# Object ID 12: shop.product - "Product Name" (8 total views)
+```
+
+### Key Migration
+
+The system automatically creates both new content-type-specific keys and maintains backward compatibility:
+
+- **New implementations**: Use content-type keys for better object identification
+- **Existing systems**: Continue working with legacy keys seamlessly
+- **Analytics queries**: Can distinguish between different model types
+
+### Key Expiration
+
+All Redis keys have configurable expiration times:
+
+```python
+# settings.py
+DJINSIGHT_REDIS_EXPIRATION = 60 * 60 * 24 * 7  # 7 days (default)
+```
+
 ## Configuration Options
 
 ```python

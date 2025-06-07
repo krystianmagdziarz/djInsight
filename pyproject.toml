@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "djInsight"
-version = "1.0.0"
+version = "0.1.1"
 description = "A Django/Wagtail package for tracking page view statistics with Redis and async processing"
 readme = "README.md"
 license = {file = "LICENSE"}
@@ -48,6 +48,7 @@ dependencies = [
     "wagtail>=3.0",
     "redis>=4.0.0",
     "celery>=5.0.0",
+    "django-redis>=5.0.0",
 ]
 
 [project.optional-dependencies]

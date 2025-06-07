@@ -2,6 +2,50 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.1] - 2025-06-07
+
+### Added
+- Modular HTML template system for statistics display
+- Individual statistics components:
+  - `total_views_stat` - Total views display component
+  - `unique_views_stat` - Unique views display component  
+  - `last_viewed_stat` - Last viewed timestamp component
+  - `first_viewed_stat` - First viewed timestamp component
+  - `views_today_stat` - Today's views component
+  - `views_week_stat` - This week's views component
+  - `views_month_stat` - This month's views component
+  - `live_stats_counter` - Live counter with auto-refresh
+- Enhanced Redis key structure with content_type identification
+- Backward compatibility for existing Redis keys
+- Content-type specific analytics for better object identification
+- Example Django application demonstrating all features
+- Redis key analysis management command
+- Debug logging capabilities for JavaScript tracking
+
+### Changed
+- **BREAKING**: Replaced JavaScript-based tracking with modular HTML template system
+- Improved Redis key naming convention: `djinsight:counter:content_type:id`
+- Enhanced `get_page_stats` API to support content_type parameter
+- Updated template tags to work with any Django model (not just Wagtail pages)
+- Simplified live statistics implementation using standard template tags
+
+### Fixed
+- Template tag context handling in inclusion_tag environments
+- Redis key conflict resolution for objects with same ID but different content types
+- Live statistics display in embedded template components
+- Content type detection for Django models using `_meta.label_lower`
+
+### Enhanced
+- PageViewStatisticsMixin now works with any Django model
+- Better error handling and fallback mechanisms
+- Improved template tag auto-detection of objects from context
+- Enhanced documentation with Redis key structure explanation
+
+### Development
+- Added comprehensive example application with Article, Product, and Course models
+- Improved development workflow with better debugging tools
+- Enhanced template system demonstrating modular component usage
+
 ## [0.1.0] - 2025-06-07
 
 ### Added

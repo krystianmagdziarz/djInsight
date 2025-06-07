@@ -163,13 +163,17 @@ def record_page_view(request):
         # Store the view data
         pipe.setex(f"{REDIS_KEY_PREFIX}{view_id}", expiration, json.dumps(view_data))
 
-        # Increment counters
-        pipe.incr(f"{REDIS_KEY_PREFIX}counter:{page_id}")
+        # Increment counters with content_type for better identification
+        pipe.incr(f"{REDIS_KEY_PREFIX}counter:{content_type}:{page_id}")
+        pipe.incr(f"{REDIS_KEY_PREFIX}counter:{page_id}")  # Keep backward compatibility
 
         # Mark session as having viewed this page
         if is_unique:
             pipe.setex(session_page_key, expiration, 1)
-            pipe.incr(f"{REDIS_KEY_PREFIX}unique_counter:{page_id}")
+            pipe.incr(f"{REDIS_KEY_PREFIX}unique_counter:{content_type}:{page_id}")
+            pipe.incr(
+                f"{REDIS_KEY_PREFIX}unique_counter:{page_id}"
+            )  # Keep backward compatibility
 
         # Execute pipeline
         pipe.execute()
@@ -205,7 +209,8 @@ def get_page_stats(request):
 
     Expected POST data:
     {
-        "page_id": 123
+        "page_id": 123,
+        "content_type": "blog.article"  # Optional, for more specific stats
     }
     """
     if not redis_client:
@@ -217,6 +222,7 @@ def get_page_stats(request):
     try:
         data = json.loads(request.body)
         page_id = data.get("page_id")
+        content_type = data.get("content_type")  # Optional
 
         if not page_id:
             return JsonResponse(
@@ -232,17 +238,45 @@ def get_page_stats(request):
             )
 
         # Get counters from Redis
-        total_views = redis_client.get(f"{REDIS_KEY_PREFIX}counter:{page_id}")
-        unique_views = redis_client.get(f"{REDIS_KEY_PREFIX}unique_counter:{page_id}")
+        if content_type:
+            # Use specific content_type keys if provided
+            total_views = redis_client.get(
+                f"{REDIS_KEY_PREFIX}counter:{content_type}:{page_id}"
+            )
+            unique_views = redis_client.get(
+                f"{REDIS_KEY_PREFIX}unique_counter:{content_type}:{page_id}"
+            )
 
-        # Convert to integers
+            # Fallback to legacy keys and add them together for total count
+            if not total_views:
+                total_views = redis_client.get(f"{REDIS_KEY_PREFIX}counter:{page_id}")
+
+            # For unique views, check both new and old keys and take maximum
+            # (since unique visits might be split between old and new format)
+            legacy_unique_views = redis_client.get(
+                f"{REDIS_KEY_PREFIX}unique_counter:{page_id}"
+            )
+
+            unique_views_new = int(unique_views) if unique_views else 0
+            unique_views_legacy = int(legacy_unique_views) if legacy_unique_views else 0
+            unique_views = max(unique_views_new, unique_views_legacy)
+
+        else:
+            # Fallback to generic keys for backward compatibility
+            total_views = redis_client.get(f"{REDIS_KEY_PREFIX}counter:{page_id}")
+            unique_views = redis_client.get(
+                f"{REDIS_KEY_PREFIX}unique_counter:{page_id}"
+            )
+            unique_views = int(unique_views) if unique_views else 0
+
+        # Convert total_views to integer
         total_views = int(total_views) if total_views else 0
-        unique_views = int(unique_views) if unique_views else 0
 
         return JsonResponse(
             {
                 "status": "success",
                 "page_id": page_id,
+                "content_type": content_type,
                 "total_views": total_views,
                 "unique_views": unique_views,
             }

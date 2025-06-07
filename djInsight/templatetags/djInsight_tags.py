@@ -125,10 +125,6 @@ def page_stats_display(context, obj=None, show_unique=True, refresh_interval=Non
     {% page_stats_display %}
     {% page_stats_display obj=article show_unique=False refresh_interval=30 %}
     """
-    request = context.get("request")
-    if not request:
-        return ""
-
     obj = _get_object_from_context(context, obj)
     if not obj:
         return ""
@@ -153,6 +149,7 @@ def page_stats_display(context, obj=None, show_unique=True, refresh_interval=Non
     template_context = {
         "stats_id": stats_id,
         "object_id": obj.id,
+        "content_type": _get_content_type_label(obj),
         "stats_url": stats_url,
         "show_unique": show_unique,
         "refresh_interval": refresh_interval_ms,
@@ -280,6 +277,7 @@ def live_stats_counter(context, obj=None, show_unique=True, refresh_interval=30)
     obj = _get_object_from_context(context, obj)
     return {
         "obj": obj,
+        "content_type": _get_content_type_label(obj) if obj else "",
         "show_unique": show_unique,
         "refresh_interval": refresh_interval,
     }
