@@ -2,6 +2,32 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.2] - 2025-06-07
+
+### Added
+- **📚 Comprehensive Documentation Structure**
+  - Complete documentation reorganization into modular guides
+  - Detailed Installation Guide with troubleshooting
+  - Quick Start Guide with practical examples
+  - Contributing guidelines for developers
+  - License documentation with detailed explanations
+  - Demo Gallery showcasing all features with screenshots
+
+### Changed
+- **📖 README Optimization**
+  - Streamlined README with focus on quick overview
+  - Reduced emoji usage for better readability
+  - All detailed documentation moved to dedicated `docs/` folder
+  - Enhanced "How It Works" section explaining two-tier architecture
+  - Complete comparison with Google Analytics
+
+### Enhanced
+- **🎨 Documentation Experience**
+  - Visual demo gallery with 5 comprehensive screenshots
+  - Step-by-step guides for different use cases
+  - Better navigation structure with clear links
+  - Modular documentation that can be referenced independently
+
 ## [0.1.1] - 2025-06-07
 
 ### Added
@@ -18,55 +44,48 @@ All notable changes to this project will be documented in this file.
 - Enhanced Redis key structure with content_type identification
 - Backward compatibility for existing Redis keys
 - Content-type specific analytics for better object identification
-- Example Django application demonstrating all features
-- Redis key analysis management command
-- Debug logging capabilities for JavaScript tracking
+- Example Django application with complete setup
 
 ### Changed
-- **BREAKING**: Replaced JavaScript-based tracking with modular HTML template system
-- Improved Redis key naming convention: `djinsight:counter:content_type:id`
-- Enhanced `get_page_stats` API to support content_type parameter
-- Updated template tags to work with any Django model (not just Wagtail pages)
-- Simplified live statistics implementation using standard template tags
-
-### Fixed
-- Template tag context handling in inclusion_tag environments
-- Redis key conflict resolution for objects with same ID but different content types
-- Live statistics display in embedded template components
-- Content type detection for Django models using `_meta.label_lower`
+- **🔄 Template Tag Architecture Overhaul**
+  - Replaced monolithic template with modular components
+  - Each statistic now has its own dedicated template tag
+  - Flexible composition system - mix and match components as needed
+  - Improved template tag parameter consistency
 
 ### Enhanced
-- PageViewStatisticsMixin now works with any Django model
-- Better error handling and fallback mechanisms
-- Improved template tag auto-detection of objects from context
-- Enhanced documentation with Redis key structure explanation
+- **⚡ Redis Performance Optimizations**
+  - Content-type specific key structure prevents ID conflicts
+  - Enhanced key naming: `djinsight:counter:blog.article:123`
+  - Automatic fallback to legacy key format for existing data
+  - Better data organization and retrieval efficiency
+
+### Fixed
+- **🐛 Critical Bug Fixes**
+  - Template tag context variable access (`obj._meta.label_lower` error)
+  - Cross-model ID conflicts (Article ID=5 vs Product ID=5)
+  - Browser cache affecting live statistics display
+  - Request context availability in inclusion tags
 
 ### Development
-- Added comprehensive example application with Article, Product, and Course models
-- Improved development workflow with better debugging tools
-- Enhanced template system demonstrating modular component usage
+- **🔧 Enhanced Development Experience**
+  - Complete Celery integration with example project
+  - Automated task scheduling (10s, 10min, daily intervals)
+  - Comprehensive example project demonstrating all features
+  - Better code organization following DRY principles
+  - Enhanced debugging and logging capabilities
 
-## [0.1.0] - 2025-06-07
+## [0.1.0] - 2025-06-06
 
 ### Added
 - Initial release of djInsight
-- Redis-based page view tracking for high performance
-- Asynchronous processing with Celery tasks
-- PageViewStatisticsMixin for easy integration with Wagtail pages
-- Template tags for tracking and displaying statistics:
-  - `page_view_tracker` - JavaScript tracking code
-  - `page_stats_display` - Live statistics display
-  - `page_analytics_widget` - Complete analytics widget
-  - `format_view_count` - Number formatting filter
-- Django admin interface for viewing logs and summaries
-- Management commands for manual processing:
-  - `process_pageviews` - Process views from Redis
-  - `generate_summaries` - Generate daily summaries
-  - `cleanup_pageviews` - Clean up old data
-- Comprehensive test suite
-- Full documentation and examples
-- Support for Django 3.2+ and Wagtail 3.0+
-- Support for Python 3.8+
+- Real-time page view tracking with Redis backend
+- Django/Wagtail model integration via PageViewStatisticsMixin
+- Session-based unique visitor tracking
+- Celery integration for background data processing
+- Basic template tags for analytics display
+- Admin interface for viewing statistics
+- Management commands for data processing and cleanup
 
 ### Features
 - **High Performance**: Sub-millisecond page view recording using Redis
