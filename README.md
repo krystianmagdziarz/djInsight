@@ -2,11 +2,13 @@
 
 A high-performance Django/Wagtail package for real-time page view analytics with Redis and Celery.
 
-[![Django](https://img.shields.io/badge/Django-3.2%20%7C%204.0%20%7C%204.1%20%7C%204.2%20%7C%205.0-092E20?style=flat&logo=django&logoColor=white)](https://www.djangoproject.com/)
-[![Wagtail](https://img.shields.io/badge/Wagtail-3.0%20%7C%204.0%20%7C%205.0-43B1B0?style=flat&logo=wagtail&logoColor=white)](https://wagtail.org/)
+[![Django](https://img.shields.io/badge/Django-3.2%20%7C%204.0%20%7C%204.1%20%7C%204.2%20%7C%205.0%20%7C%205.1%20%7C%205.2-092E20?style=flat&logo=django&logoColor=white)](https://www.djangoproject.com/)
+[![Wagtail](https://img.shields.io/badge/Wagtail-3.0%20%7C%204.0%20%7C%205.0%20%7C%206.0%20%7C%207.0-43B1B0?style=flat&logo=wagtail&logoColor=white)](https://wagtail.org/)
 [![Python](https://img.shields.io/badge/Python-3.8%2B-3776AB?style=flat&logo=python&logoColor=white)](https://www.python.org/)
 [![PyPI](https://img.shields.io/pypi/v/djinsight?color=blue&logo=pypi&logoColor=white)](https://pypi.org/project/djinsight/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
+[![Published on Django Packages](https://img.shields.io/badge/Published%20on-Django%20Packages-0c3c26)](https://djangopackages.org/packages/p/djinsight/)
+
 
 ## 🚀 Live Demo Screenshots
 
