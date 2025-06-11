@@ -1,0 +1,1 @@
+# djinsight management commands
