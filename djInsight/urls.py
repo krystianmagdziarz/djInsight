@@ -2,7 +2,7 @@ from django.urls import path
 
 from . import views
 
-app_name = "djInsight"
+app_name = "djinsight"
 
 urlpatterns = [
     path("record-view/", views.record_page_view, name="record_page_view"),

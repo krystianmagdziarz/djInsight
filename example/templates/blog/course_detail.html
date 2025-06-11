@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
-{% load djInsight_tags %}
+{% load djinsight_tags %}
 
-{% block title %}{{ course.title }} - djInsight Example{% endblock %}
+{% block title %}{{ course.title }} - djinsight Example{% endblock %}
 
 {% block content %}
 <div class="row">
@@ -25,11 +25,11 @@
             {{ course.description|linebreaks }}
         </div>
         
-        <!-- djInsight Course Analytics Demo -->
+        <!-- djinsight Course Analytics Demo -->
         <div class="analytics-demo mt-5">
             <h3>📊 Course Analytics Demo</h3>
             <p class="text-muted">
-                This section demonstrates how djInsight can track course engagement and student interest.
+                This section demonstrates how djinsight can track course engagement and student interest.
             </p>
             
             <div class="row mb-4">

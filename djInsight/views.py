@@ -51,7 +51,7 @@ except (ConnectionError, TimeoutError) as e:
 
 # Redis key prefix for storing page views
 REDIS_KEY_PREFIX = getattr(
-    settings, "DJINSIGHT_REDIS_KEY_PREFIX", "djInsight:pageview:"
+    settings, "DJINSIGHT_REDIS_KEY_PREFIX", "djinsight:pageview:"
 )
 
 

@@ -1,6 +1,6 @@
 # 🔧 Configuration
 
-Complete configuration reference for djInsight settings.
+Complete configuration reference for djinsight settings.
 
 ## 📋 Basic Settings
 
@@ -19,7 +19,7 @@ DJINSIGHT_REDIS_CONNECT_TIMEOUT = 5
 
 # Data Storage
 DJINSIGHT_REDIS_EXPIRATION = 60 * 60 * 24 * 7  # 7 days
-DJINSIGHT_REDIS_KEY_PREFIX = "djInsight:pageview:"
+DJINSIGHT_REDIS_KEY_PREFIX = "djinsight:pageview:"
 
 # Feature Control
 DJINSIGHT_ENABLE_TRACKING = True
@@ -100,7 +100,7 @@ DJINSIGHT_REDIS_PORT = 6380    # Custom port
 **Default:** `0`  
 **Type:** Integer (0-15)
 
-Redis database number to use for djInsight data.
+Redis database number to use for djinsight data.
 
 ```python
 DJINSIGHT_REDIS_DB = 0    # Default database
@@ -162,13 +162,13 @@ DJINSIGHT_REDIS_EXPIRATION = 60 * 60 * 24 * 1   # 1 day for testing
 
 ### DJINSIGHT_REDIS_KEY_PREFIX
 
-**Default:** `"djInsight:pageview:"`  
+**Default:** `"djinsight:pageview:"`  
 **Type:** String
 
-Prefix for all Redis keys used by djInsight.
+Prefix for all Redis keys used by djinsight.
 
 ```python
-DJINSIGHT_REDIS_KEY_PREFIX = "djInsight:pageview:"     # Default
+DJINSIGHT_REDIS_KEY_PREFIX = "djinsight:pageview:"     # Default
 DJINSIGHT_REDIS_KEY_PREFIX = "analytics:views:"       # Custom prefix
 DJINSIGHT_REDIS_KEY_PREFIX = "mysite:djinsight:"      # Site-specific
 ```
@@ -225,7 +225,7 @@ DJINSIGHT_MAX_RETRIES = 1    # Fewer retries for fast failure
 
 ## ⏰ Celery Schedule Settings
 
-djInsight supports configurable task schedules through environment variables. These settings control when background tasks run.
+djinsight supports configurable task schedules through environment variables. These settings control when background tasks run.
 
 ### DJINSIGHT_PROCESS_SCHEDULE
 
@@ -387,7 +387,7 @@ CACHES = {
     }
 }
 
-# djInsight will use the same connection
+# djinsight will use the same connection
 DJINSIGHT_REDIS_HOST = '127.0.0.1'
 DJINSIGHT_REDIS_PORT = 6379
 DJINSIGHT_REDIS_DB = 1
@@ -395,7 +395,7 @@ DJINSIGHT_REDIS_DB = 1
 
 ### Celery Integration
 
-Configure Celery for optimal djInsight performance:
+Configure Celery for optimal djinsight performance:
 
 ```python
 # celery.py
@@ -403,7 +403,7 @@ from celery import Celery
 
 app = Celery('myproject')
 
-# Optimize for djInsight tasks
+# Optimize for djinsight tasks
 app.conf.update(
     task_serializer='json',
     accept_content=['json'],
@@ -411,9 +411,9 @@ app.conf.update(
     timezone='UTC',
     enable_utc=True,
     
-    # Task routing for djInsight
+    # Task routing for djinsight
     task_routes={
-        'djInsight.tasks.*': {'queue': 'analytics'},
+        'djinsight.tasks.*': {'queue': 'analytics'},
     },
     
     # Batch processing optimization
@@ -464,7 +464,7 @@ LOGGING = {
         },
     },
     'loggers': {
-        'djInsight': {
+        'djinsight': {
             'handlers': ['console'],
             'level': 'DEBUG',
             'propagate': False,
@@ -481,7 +481,7 @@ Test your configuration:
 # Django shell
 python manage.py shell
 
->>> from djInsight.views import redis_client
+>>> from djinsight.views import redis_client
 >>> redis_client.ping()
 True
 

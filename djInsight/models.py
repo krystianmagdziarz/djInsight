@@ -11,14 +11,14 @@ class PageViewStatisticsMixin(models.Model):
     ```python
     # For Wagtail pages
     from wagtail.models import Page
-    from djInsight.models import PageViewStatisticsMixin
+    from djinsight.models import PageViewStatisticsMixin
 
     class MyPage(Page, PageViewStatisticsMixin):
         pass
 
     # For regular Django models
     from django.db import models
-    from djInsight.models import PageViewStatisticsMixin
+    from djinsight.models import PageViewStatisticsMixin
 
     class Article(models.Model, PageViewStatisticsMixin):
         title = models.CharField(max_length=200)

@@ -3,8 +3,8 @@ requires = ["setuptools>=45", "wheel", "setuptools_scm[toml]>=6.2"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "djInsight"
-version = "0.1.4"
+name = "djinsight"
+version = "0.1.5"
 description = "A Django/Wagtail package for tracking page view statistics with Redis and async processing"
 readme = "README.md"
 license = {file = "LICENSE"}
@@ -75,18 +75,18 @@ test = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/krystianmagdziarz/djInsight"
+Homepage = "https://github.com/krystianmagdziarz/djinsight"
 Documentation = "https://djinsight.readthedocs.io/"
-Repository = "https://github.com/krystianmagdziarz/djInsight.git"
-"Bug Tracker" = "https://github.com/krystianmagdziarz/djInsight/issues"
-Changelog = "https://github.com/krystianmagdziarz/djInsight/blob/main/CHANGELOG.md"
+Repository = "https://github.com/krystianmagdziarz/djinsight.git"
+"Bug Tracker" = "https://github.com/krystianmagdziarz/djinsight/issues"
+Changelog = "https://github.com/krystianmagdziarz/djinsight/blob/main/CHANGELOG.md"
 
 [tool.setuptools]
-packages = ["djInsight"]
+packages = ["djinsight"]
 include-package-data = true
 
 [tool.setuptools.package-data]
-djInsight = [
+djinsight = [
     "templates/**/*",
     "static/**/*",
     "migrations/*.py",
@@ -154,7 +154,7 @@ markers = [
 ]
 
 [tool.coverage.run]
-source = ["djInsight"]
+source = ["djinsight"]
 omit = [
     "*/migrations/*",
     "*/tests/*",

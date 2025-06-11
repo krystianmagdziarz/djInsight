@@ -27,7 +27,7 @@ class ArticleAdmin(admin.ModelAdmin):
         ("Content", {"fields": ("title", "slug", "author", "content")}),
         ("Dates", {"fields": ("published_at", "updated_at"), "classes": ("collapse",)}),
         (
-            "djInsight Analytics",
+            "djinsight Analytics",
             {
                 "fields": (
                     "total_views",
@@ -36,7 +36,7 @@ class ArticleAdmin(admin.ModelAdmin):
                     "last_viewed_at",
                 ),
                 "classes": ("collapse",),
-                "description": "View statistics are automatically tracked by djInsight",
+                "description": "View statistics are automatically tracked by djinsight",
             },
         ),
     )
@@ -68,7 +68,7 @@ class ProductAdmin(admin.ModelAdmin):
             {"fields": ("name", "slug", "category", "price", "description")},
         ),
         (
-            "djInsight Analytics",
+            "djinsight Analytics",
             {
                 "fields": (
                     "total_views",
@@ -77,7 +77,7 @@ class ProductAdmin(admin.ModelAdmin):
                     "last_viewed_at",
                 ),
                 "classes": ("collapse",),
-                "description": "View statistics are automatically tracked by djInsight",
+                "description": "View statistics are automatically tracked by djinsight",
             },
         ),
     )
@@ -109,7 +109,7 @@ class CourseAdmin(admin.ModelAdmin):
             {"fields": ("title", "slug", "instructor", "difficulty", "description")},
         ),
         (
-            "djInsight Analytics",
+            "djinsight Analytics",
             {
                 "fields": (
                     "total_views",
@@ -118,7 +118,7 @@ class CourseAdmin(admin.ModelAdmin):
                     "last_viewed_at",
                 ),
                 "classes": ("collapse",),
-                "description": "View statistics are automatically tracked by djInsight",
+                "description": "View statistics are automatically tracked by djinsight",
             },
         ),
     )

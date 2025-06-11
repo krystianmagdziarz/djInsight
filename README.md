@@ -1,13 +1,19 @@
-# 📊 djInsight
+# 📊 djinsight
 
 A high-performance Django/Wagtail package for real-time page view analytics with Redis and Celery.
 
+[![Django](https://img.shields.io/badge/Django-3.2%20%7C%204.0%20%7C%204.1%20%7C%204.2%20%7C%205.0-092E20?style=flat&logo=django&logoColor=white)](https://www.djangoproject.com/)
+[![Wagtail](https://img.shields.io/badge/Wagtail-3.0%20%7C%204.0%20%7C%205.0-43B1B0?style=flat&logo=wagtail&logoColor=white)](https://wagtail.org/)
+[![Python](https://img.shields.io/badge/Python-3.8%2B-3776AB?style=flat&logo=python&logoColor=white)](https://www.python.org/)
+[![PyPI](https://img.shields.io/pypi/v/djinsight?color=blue&logo=pypi&logoColor=white)](https://pypi.org/project/djinsight/)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
+
 ## 🚀 Live Demo Screenshots
 
-See djInsight in action with our comprehensive example application:
+See djinsight in action with our comprehensive example application:
 
 ### Articles List
-![djInsight Dashboard](docs/images/1.png)
+![djinsight Dashboard](docs/images/1.png)
 *Main articles list with counters*
 
 ### Article Analytics 
@@ -16,7 +22,7 @@ See djInsight in action with our comprehensive example application:
 
 ### Analytics Demo
 ![Analytics Components](docs/images/3.png)
-*Demonstration of djInsight's modular template tags and live statistics counter*
+*Demonstration of djinsight's modular template tags and live statistics counter*
 
 ### E-commerce Integration
 ![Product Analytics](docs/images/4.png)
@@ -30,10 +36,10 @@ See djInsight in action with our comprehensive example application:
 
 ## 🔧 How It Works
 
-djInsight implements a **two-tier architecture** for maximum performance and reliability:
+djinsight implements a **two-tier architecture** for maximum performance and reliability:
 
 ### 🚀 Tier 1: Real-time Data Collection (Redis)
-- **Instant Tracking**: When a user visits a page, JavaScript sends an async request to djInsight's API
+- **Instant Tracking**: When a user visits a page, JavaScript sends an async request to djinsight's API
 - **Redis Storage**: View data is immediately stored in Redis with sub-millisecond write times
 - **Session Management**: Unique visitors are tracked using Django's session framework
 - **Smart Key Structure**: Uses content-type specific Redis keys (`djinsight:counter:blog.article:123`)
@@ -96,11 +102,11 @@ djInsight implements a **two-tier architecture** for maximum performance and rel
 - **📊 `views_month_stat`**: Monthly performance
 - **🔄 `live_stats_counter`**: Auto-refreshing live counter
 
-## 🆚 djInsight vs Google Analytics
+## 🆚 djinsight vs Google Analytics
 
-### 🏆 **djInsight Advantages**
+### 🏆 **djinsight Advantages**
 
-| Feature | 📊 djInsight | 📈 Google Analytics |
+| Feature | 📊 djinsight | 📈 Google Analytics |
 |---------|-------------|-------------------|
 | **🚀 Performance** | Sub-millisecond Redis writes | ~100-500ms external requests |
 | **🔒 Privacy** | Your servers, full control | Google's servers, limited control |
@@ -114,7 +120,7 @@ djInsight implements a **two-tier architecture** for maximum performance and rel
 
 ### 📈 **Google Analytics Advantages**
 
-| Feature | 📈 Google Analytics | 📊 djInsight |
+| Feature | 📈 Google Analytics | 📊 djinsight |
 |---------|-------------------|-------------|
 | **🌍 External Traffic Analysis** | Full referrer tracking | Basic referrer only |
 | **🎯 Advanced Segmentation** | Extensive user segments | Session-based only |
@@ -125,16 +131,16 @@ djInsight implements a **two-tier architecture** for maximum performance and rel
 
 ### 🤝 **Best Practice: Use Both**
 
-Many sites use **djInsight + Google Analytics** together:
+Many sites use **djinsight + Google Analytics** together:
 
-- **📊 djInsight**: Internal dashboards, real-time stats, GDPR-compliant tracking
+- **📊 djinsight**: Internal dashboards, real-time stats, GDPR-compliant tracking
 - **📈 Google Analytics**: Marketing analysis, SEO insights, external traffic sources
-- **🔄 Hybrid Approach**: djInsight for app performance, GA for marketing metrics
+- **🔄 Hybrid Approach**: djinsight for app performance, GA for marketing metrics
 
 ## 📦 Quick Installation
 
 ```bash
-pip install djInsight
+pip install djinsight
 ```
 
 Add to your Django settings and URLs:
@@ -143,20 +149,20 @@ Add to your Django settings and URLs:
 # settings.py
 INSTALLED_APPS = [
     # ... other apps
-    'djInsight',
+    'djinsight',
 ]
 
 # urls.py  
 urlpatterns = [
     # ... other URLs
-    path('djInsight/', include('djInsight.urls')),
+    path('djinsight/', include('djinsight.urls')),
 ]
 ```
 
 Add analytics to your models:
 
 ```python
-from djInsight.models import PageViewStatisticsMixin
+from djinsight.models import PageViewStatisticsMixin
 
 class Article(models.Model, PageViewStatisticsMixin):
     title = models.CharField(max_length=200)
@@ -166,7 +172,7 @@ class Article(models.Model, PageViewStatisticsMixin):
 Add tracking to your templates:
 
 ```html
-{% load djInsight_tags %}
+{% load djinsight_tags %}
 {% page_view_tracker obj=article %}
 <p>Views: {% total_views_stat obj=article %}</p>
 ```
@@ -203,10 +209,10 @@ Add tracking to your templates:
 
 ## 🔗 Links
 
-- **📦 [PyPI Package](https://pypi.org/project/djInsight/)**
-- **🐙 [GitHub Repository](https://github.com/krystianmagdziarz/djInsight)**
-- **🐛 [Issue Tracker](https://github.com/krystianmagdziarz/djInsight/issues)**
-- **💬 [Discussions](https://github.com/krystianmagdziarz/djInsight/discussions)**
+- **📦 [PyPI Package](https://pypi.org/project/djinsight/)**
+- **🐙 [GitHub Repository](https://github.com/krystianmagdziarz/djinsight)**
+- **🐛 [Issue Tracker](https://github.com/krystianmagdziarz/djinsight/issues)**
+- **💬 [Discussions](https://github.com/krystianmagdziarz/djinsight/discussions)**
 
 ## 📄 License
 

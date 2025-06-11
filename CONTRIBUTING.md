@@ -1,6 +1,6 @@
-# Contributing to djInsight
+# Contributing to djinsight
 
-Thank you for your interest in contributing to djInsight! This document provides guidelines and instructions for contributing to the project.
+Thank you for your interest in contributing to djinsight! This document provides guidelines and instructions for contributing to the project.
 
 ## Development Setup
 
@@ -14,8 +14,8 @@ Thank you for your interest in contributing to djInsight! This document provides
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/krystianmagdziarz/djInsight.git
-   cd djInsight
+   git clone https://github.com/krystianmagdziarz/djinsight.git
+   cd djinsight
    ```
 
 2. **Create a virtual environment:**
@@ -46,10 +46,10 @@ Thank you for your interest in contributing to djInsight! This document provides
 pytest
 
 # Run with coverage
-pytest --cov=djInsight
+pytest --cov=djinsight
 
 # Run specific test file
-pytest djInsight/tests/test_models.py
+pytest djinsight/tests/test_models.py
 
 # Run with verbose output
 pytest -v
@@ -61,19 +61,19 @@ We use several tools to maintain code quality:
 
 ```bash
 # Format code with Black
-black djInsight/
+black djinsight/
 
 # Sort imports with isort
-isort djInsight/
+isort djinsight/
 
 # Lint with flake8
-flake8 djInsight/
+flake8 djinsight/
 
 # Type checking with mypy
-mypy djInsight/
+mypy djinsight/
 
 # Run all quality checks
-black djInsight/ && isort djInsight/ && flake8 djInsight/ && mypy djInsight/
+black djinsight/ && isort djinsight/ && flake8 djinsight/ && mypy djinsight/
 ```
 
 ### Building the Package
@@ -133,10 +133,10 @@ Use descriptive branch names:
 
 ### Test Structure
 
-Tests are organized in the `djInsight/tests/` directory:
+Tests are organized in the `djinsight/tests/` directory:
 
 ```
-djInsight/tests/
+djinsight/tests/
 ├── __init__.py
 ├── test_models.py
 ├── test_views.py
@@ -157,7 +157,7 @@ djInsight/tests/
 
 ```python
 from django.test import TestCase
-from djInsight.models import PageViewLog
+from djinsight.models import PageViewLog
 
 class PageViewLogTest(TestCase):
     def test_create_page_view_log(self):
@@ -192,7 +192,7 @@ class PageViewLogTest(TestCase):
 1. **Update version numbers** in:
    - `setup.py`
    - `pyproject.toml`
-   - `djInsight/__init__.py`
+   - `djinsight/__init__.py`
 
 2. **Update CHANGELOG.md** with new version
 
@@ -249,8 +249,8 @@ For feature requests, please provide:
 ## Getting Help
 
 - **Documentation:** [Read the docs](https://djinsight.readthedocs.io/)
-- **Issues:** [GitHub Issues](https://github.com/yourusername/djInsight/issues)
-- **Discussions:** [GitHub Discussions](https://github.com/yourusername/djInsight/discussions)
+- **Issues:** [GitHub Issues](https://github.com/yourusername/djinsight/issues)
+- **Discussions:** [GitHub Discussions](https://github.com/yourusername/djinsight/discussions)
 
 ## Recognition
 
@@ -259,4 +259,4 @@ Contributors will be recognized in:
 - README.md contributors section
 - Release notes
 
-Thank you for contributing to djInsight! 
+Thank you for contributing to djinsight! 

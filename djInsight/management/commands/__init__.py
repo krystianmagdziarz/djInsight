@@ -1,1 +1,1 @@
-# djInsight management commands
+# djinsight management commands

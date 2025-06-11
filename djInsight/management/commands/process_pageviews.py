@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand, CommandError
 
-from djInsight.tasks import run_process_page_views
+from djinsight.tasks import run_process_page_views
 
 
 class Command(BaseCommand):

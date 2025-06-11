@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand, CommandError
 
-from djInsight.tasks import run_generate_summaries
+from djinsight.tasks import run_generate_summaries
 
 
 class Command(BaseCommand):

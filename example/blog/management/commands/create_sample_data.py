@@ -5,7 +5,7 @@ from blog.models import Article, Course, Product
 
 
 class Command(BaseCommand):
-    help = "Create sample data for djInsight demo"
+    help = "Create sample data for djinsight demo"
 
     def handle(self, *args, **options):
         self.stdout.write("Creating sample data...")
@@ -13,10 +13,10 @@ class Command(BaseCommand):
         # Create sample articles
         articles_data = [
             {
-                "title": "Getting Started with djInsight",
-                "content": """djInsight is a powerful Django package for tracking page views and analytics. 
+                "title": "Getting Started with djinsight",
+                "content": """djinsight is a powerful Django package for tracking page views and analytics. 
                 
-This comprehensive guide will walk you through the installation and basic setup of djInsight in your Django project. 
+This comprehensive guide will walk you through the installation and basic setup of djinsight in your Django project. 
 
 Key features include:
 - Real-time view tracking with Redis
@@ -25,12 +25,12 @@ Key features include:
 - Background processing with Celery
 - Comprehensive analytics dashboard
 
-Whether you're building a blog, e-commerce site, or any web application, djInsight provides the tools you need to understand your users' behavior and optimize your content strategy.""",
-                "author": "djInsight Team",
+Whether you're building a blog, e-commerce site, or any web application, djinsight provides the tools you need to understand your users' behavior and optimize your content strategy.""",
+                "author": "djinsight Team",
             },
             {
-                "title": "Advanced Analytics with djInsight",
-                "content": """Take your analytics to the next level with djInsight's advanced features.
+                "title": "Advanced Analytics with djinsight",
+                "content": """Take your analytics to the next level with djinsight's advanced features.
 
 In this article, we'll explore:
 - Custom analytics queries
@@ -39,12 +39,12 @@ In this article, we'll explore:
 - Performance optimization tips
 - Integration with external analytics tools
 
-Learn how to leverage djInsight's powerful analytics engine to gain deeper insights into your content performance and user engagement patterns.""",
+Learn how to leverage djinsight's powerful analytics engine to gain deeper insights into your content performance and user engagement patterns.""",
                 "author": "Analytics Expert",
             },
             {
                 "title": "Building Responsive Analytics Dashboards",
-                "content": """Create beautiful, responsive analytics dashboards using djInsight's modular template tags.
+                "content": """Create beautiful, responsive analytics dashboards using djinsight's modular template tags.
 
 This tutorial covers:
 - Designing mobile-friendly analytics displays
@@ -58,7 +58,7 @@ Transform your raw analytics data into compelling visual stories that help you m
             },
             {
                 "title": "Performance Optimization for High-Traffic Sites",
-                "content": """Optimize djInsight for high-traffic websites and applications.
+                "content": """Optimize djinsight for high-traffic websites and applications.
 
 Topics covered:
 - Redis configuration and clustering
@@ -71,8 +71,8 @@ Ensure your analytics system can handle millions of page views while maintaining
                 "author": "DevOps Engineer",
             },
             {
-                "title": "Integrating djInsight with Machine Learning",
-                "content": """Combine djInsight analytics with machine learning for predictive insights.
+                "title": "Integrating djinsight with Machine Learning",
+                "content": """Combine djinsight analytics with machine learning for predictive insights.
 
 Learn about:
 - Data export and preprocessing
@@ -101,33 +101,33 @@ Discover how to use your analytics data to build intelligent systems that improv
         # Create sample products
         products_data = [
             {
-                "name": "djInsight Pro License",
+                "name": "djinsight Pro License",
                 "price": 99.99,
-                "description": "Professional license for djInsight with premium features and support.",
+                "description": "Professional license for djinsight with premium features and support.",
                 "category": "Software",
             },
             {
                 "name": "Analytics Dashboard Template",
                 "price": 49.99,
-                "description": "Beautiful, responsive dashboard template designed for djInsight analytics.",
+                "description": "Beautiful, responsive dashboard template designed for djinsight analytics.",
                 "category": "Templates",
             },
             {
                 "name": "Custom Integration Service",
                 "price": 299.99,
-                "description": "Professional integration service for complex djInsight setups.",
+                "description": "Professional integration service for complex djinsight setups.",
                 "category": "Services",
             },
             {
                 "name": "Performance Monitoring Add-on",
                 "price": 29.99,
-                "description": "Advanced monitoring and alerting for your djInsight installation.",
+                "description": "Advanced monitoring and alerting for your djinsight installation.",
                 "category": "Add-ons",
             },
             {
                 "name": "Mobile Analytics SDK",
                 "price": 79.99,
-                "description": "SDK for tracking mobile app analytics with djInsight backend.",
+                "description": "SDK for tracking mobile app analytics with djinsight backend.",
                 "category": "SDK",
             },
         ]

@@ -1,6 +1,6 @@
 # 📄 License
 
-djInsight is released under the MIT License.
+djinsight is released under the MIT License.
 
 ## MIT License
 
@@ -33,11 +33,11 @@ SOFTWARE.
 The MIT License is one of the most permissive open source licenses. Here's what it means for you:
 
 ### ✅ You CAN:
-- **Use** djInsight in personal and commercial projects
+- **Use** djinsight in personal and commercial projects
 - **Modify** the source code to fit your needs
 - **Distribute** the software to others
 - **Sublicense** under different terms
-- **Sell** software that includes djInsight
+- **Sell** software that includes djinsight
 
 ### 📋 You MUST:
 - **Include** the original copyright notice
@@ -49,11 +49,11 @@ The MIT License is one of the most permissive open source licenses. Here's what 
 
 ## 🤝 Contributing
 
-By contributing to djInsight, you agree that your contributions will be licensed under the same MIT License.
+By contributing to djinsight, you agree that your contributions will be licensed under the same MIT License.
 
 ## 📦 Dependencies
 
-djInsight depends on other open source packages, each with their own licenses:
+djinsight depends on other open source packages, each with their own licenses:
 
 - **Django** - BSD 3-Clause License
 - **Wagtail** - BSD 3-Clause License  

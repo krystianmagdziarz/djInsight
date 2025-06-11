@@ -1,6 +1,6 @@
 # ⚡ Quick Start Guide
 
-Get djInsight up and running in your Django project in just 5 minutes!
+Get djinsight up and running in your Django project in just 5 minutes!
 
 ## 🚀 Prerequisites
 
@@ -8,14 +8,14 @@ Before starting, make sure you have completed the [Installation Guide](installat
 
 ## 📝 Step 1: Add Analytics to Your Models
 
-djInsight works with **any Django model** through the `PageViewStatisticsMixin`.
+djinsight works with **any Django model** through the `PageViewStatisticsMixin`.
 
 ### For Wagtail Pages
 
 ```python
 # models.py
 from wagtail.models import Page
-from djInsight.models import PageViewStatisticsMixin
+from djinsight.models import PageViewStatisticsMixin
 
 class BlogPage(Page, PageViewStatisticsMixin):
     introduction = models.TextField(blank=True)
@@ -33,7 +33,7 @@ class BlogPage(Page, PageViewStatisticsMixin):
 # models.py
 from django.db import models
 from django.urls import reverse
-from djInsight.models import PageViewStatisticsMixin
+from djinsight.models import PageViewStatisticsMixin
 
 class Article(models.Model, PageViewStatisticsMixin):
     title = models.CharField(max_length=200)
@@ -68,7 +68,7 @@ Add analytics tracking to your templates:
 
 ```html
 <!-- In your detail template (e.g., article_detail.html) -->
-{% load djInsight_tags %}
+{% load djinsight_tags %}
 
 <!-- Add tracking script - automatically detects 'article' from context -->
 {% page_view_tracker %}
@@ -80,7 +80,7 @@ Add analytics tracking to your templates:
 ### Display Statistics (Optional)
 
 ```html
-{% load djInsight_tags %}
+{% load djinsight_tags %}
 
 <div class="article-stats">
     <h3>📊 Article Statistics</h3>
@@ -100,7 +100,7 @@ Add analytics tracking to your templates:
 ### Live Counter (Optional)
 
 ```html
-{% load djInsight_tags %}
+{% load djinsight_tags %}
 
 <!-- Auto-refreshing live counter -->
 <div class="live-stats">
@@ -137,7 +137,7 @@ celery -A your_project beat --loglevel=info
 
 ### ⏰ Optional: Configure Task Schedules
 
-By default, djInsight runs background tasks with these schedules:
+By default, djinsight runs background tasks with these schedules:
 - **Process views**: Every 10 seconds
 - **Generate summaries**: Every 10 minutes  
 - **Cleanup old data**: Daily at 1:00 AM
@@ -158,13 +158,13 @@ celery -A your_project beat --loglevel=info
 
 ## ✅ Step 5: Test It Works
 
-1. **Visit your page** - Go to a page with djInsight tracking
+1. **Visit your page** - Go to a page with djinsight tracking
 2. **Check Redis** - Verify data is being stored:
    ```bash
    redis-cli
    keys djinsight:*
    ```
-3. **Check admin** - Visit `/admin/djInsight/` to see logged views
+3. **Check admin** - Visit `/admin/djinsight/` to see logged views
 4. **View live stats** - Refresh the page to see counters update
 
 ## 🎯 Quick Examples
@@ -174,7 +174,7 @@ celery -A your_project beat --loglevel=info
 ```html
 <!-- templates/blog/article_detail.html -->
 {% extends 'base.html' %}
-{% load djInsight_tags %}
+{% load djinsight_tags %}
 
 {% block content %}
     <!-- Add tracking (required) -->
@@ -200,7 +200,7 @@ celery -A your_project beat --loglevel=info
 ```html
 <!-- templates/shop/product_detail.html -->
 {% extends 'base.html' %}
-{% load djInsight_tags %}
+{% load djinsight_tags %}
 
 {% block content %}
     {% page_view_tracker obj=product %}
@@ -227,7 +227,7 @@ celery -A your_project beat --loglevel=info
 
 ```html
 <!-- templates/dashboard.html -->
-{% load djInsight_tags %}
+{% load djinsight_tags %}
 
 <div class="analytics-dashboard">
     <h2>📈 Site Analytics</h2>
@@ -289,11 +289,11 @@ class Course(models.Model, PageViewStatisticsMixin):
 ### Views Not Being Tracked
 
 1. **Check JavaScript errors** in browser console
-2. **Verify URLs** - ensure `djInsight.urls` is included
+2. **Verify URLs** - ensure `djinsight.urls` is included
 3. **Check Redis** - ensure Redis is running and accessible
 4. **Test API endpoint**:
    ```bash
-   curl -X POST http://localhost:8000/djInsight/record-view/ \
+   curl -X POST http://localhost:8000/djinsight/record-view/ \
         -H "Content-Type: application/json" \
         -d '{"page_id": 1, "content_type": "blog.article"}'
    ```
@@ -309,7 +309,7 @@ class Course(models.Model, PageViewStatisticsMixin):
 
 ### Template Tags Not Working
 
-1. **Load template tags** - ensure `{% load djInsight_tags %}`
+1. **Load template tags** - ensure `{% load djinsight_tags %}`
 2. **Check object context** - verify object is available in template
 3. **Debug mode** - add `debug=True` to see console output
 

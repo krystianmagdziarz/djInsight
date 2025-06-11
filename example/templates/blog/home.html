@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
-{% load djInsight_tags %}
+{% load djinsight_tags %}
 
-{% block title %}Home - djInsight Example{% endblock %}
+{% block title %}Home - djinsight Example{% endblock %}
 
 {% block content %}
 <div class="jumbotron bg-primary text-white rounded p-5 mb-4">
-    <h1 class="display-4">Welcome to djInsight Demo!</h1>
+    <h1 class="display-4">Welcome to djinsight Demo!</h1>
     <p class="lead">
-        This is a demonstration of the djInsight package - a high-performance Django analytics system.
+        This is a demonstration of the djinsight package - a high-performance Django analytics system.
         Browse articles, products, and courses to see live view tracking in action!
     </p>
     <a class="btn btn-light btn-lg" href="{% url 'popular' %}" role="button">📊 View Analytics Dashboard</a>
@@ -16,7 +16,7 @@
 <div class="row">
     <div class="col-md-8">
         <h2>Latest Articles</h2>
-        <p class="text-muted">Each article tracks views automatically using djInsight</p>
+        <p class="text-muted">Each article tracks views automatically using djinsight</p>
         
         {% for article in articles %}
         <div class="card mb-3">
@@ -133,7 +133,7 @@
 <div class="row mt-4">
     <div class="col-12">
         <div class="alert alert-info">
-            <h5>🚀 djInsight Features Demonstrated</h5>
+            <h5>🚀 djinsight Features Demonstrated</h5>
             <ul class="mb-0">
                 <li><strong>Automatic View Tracking:</strong> Every page view is tracked automatically</li>
                 <li><strong>Modular Template Tags:</strong> Mix and match statistics components</li>

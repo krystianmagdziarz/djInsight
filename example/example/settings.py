@@ -16,7 +16,7 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Add the parent directory to Python path to import djInsight
+# Add the parent directory to Python path to import djinsight
 sys.path.insert(0, str(BASE_DIR.parent))
 
 # Quick-start development settings - unsuitable for production
@@ -40,8 +40,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    # djInsight package
-    "djInsight",
+    # djinsight package
+    "djinsight",
     # Our example app
     "blog",
 ]
@@ -86,7 +86,7 @@ DATABASES = {
     }
 }
 
-# Redis Configuration for djInsight
+# Redis Configuration for djinsight
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
@@ -98,7 +98,7 @@ CACHES = {
     }
 }
 
-# Celery Configuration for djInsight
+# Celery Configuration for djinsight
 CELERY_BROKER_URL = "redis://localhost:6379/0"
 CELERY_RESULT_BACKEND = "redis://localhost:6379/0"
 CELERY_ACCEPT_CONTENT = ["json"]
@@ -106,7 +106,7 @@ CELERY_TASK_SERIALIZER = "json"
 CELERY_RESULT_SERIALIZER = "json"
 CELERY_TIMEZONE = "UTC"
 
-# djInsight Settings
+# djinsight Settings
 DJINSIGHT_ENABLE_TRACKING = True
 DJINSIGHT_REDIS_KEY_PREFIX = "djinsight:"
 DJINSIGHT_CLEANUP_DAYS = 90

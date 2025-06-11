@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand, CommandError
 
-from djInsight.tasks import run_cleanup_old_data
+from djinsight.tasks import run_cleanup_old_data
 
 
 class Command(BaseCommand):

@@ -2,7 +2,7 @@ from django.db import models
 from django.test import TestCase
 from django.utils import timezone
 
-from djInsight.models import (
+from djinsight.models import (
     PageViewLog,
     PageViewStatisticsMixin,
     PageViewSummary,
@@ -25,7 +25,7 @@ class TestArticle(models.Model, PageViewStatisticsMixin):
         return self.title
 
     class Meta:
-        app_label = "djInsight"
+        app_label = "djinsight"
 
 
 class TestProduct(models.Model, PageViewStatisticsMixin):
@@ -41,7 +41,7 @@ class TestProduct(models.Model, PageViewStatisticsMixin):
         return f"Product: {self.name}"
 
     class Meta:
-        app_label = "djInsight"
+        app_label = "djinsight"
 
 
 class TestCustomModel(models.Model, PageViewStatisticsMixin):
@@ -50,7 +50,7 @@ class TestCustomModel(models.Model, PageViewStatisticsMixin):
     name = models.CharField(max_length=100)
 
     class Meta:
-        app_label = "djInsight"
+        app_label = "djinsight"
 
 
 # Regular model without mixin
@@ -58,7 +58,7 @@ class TestRegularModel(models.Model):
     name = models.CharField(max_length=100)
 
     class Meta:
-        app_label = "djInsight"
+        app_label = "djinsight"
 
 
 class PageViewStatisticsMixinTest(TestCase):

@@ -1,5 +1,5 @@
 """
-Celery configuration for djInsight.
+Celery configuration for djinsight.
 
 This module provides Celery configuration and periodic tasks for processing
 page view statistics.
@@ -14,7 +14,7 @@ from django.conf import settings
 # Set the default Django settings module for the 'celery' program.
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "your_project.settings")
 
-app = Celery("djInsight")
+app = Celery("djinsight")
 
 # Using a string here means the worker doesn't have to serialize
 # the configuration object to child processes.
@@ -69,7 +69,7 @@ def get_schedule_from_env(env_var, default_schedule):
 # Periodic tasks configuration with environment variable support
 app.conf.beat_schedule = {
     "process-page-views": {
-        "task": "djInsight.tasks.process_page_views_task",
+        "task": "djinsight.tasks.process_page_views_task",
         "schedule": get_schedule_from_env(
             "DJINSIGHT_PROCESS_SCHEDULE",
             10,  # Default: every 10 seconds
@@ -80,7 +80,7 @@ app.conf.beat_schedule = {
         },
     },
     "generate-daily-summaries": {
-        "task": "djInsight.tasks.generate_daily_summaries_task",
+        "task": "djinsight.tasks.generate_daily_summaries_task",
         "schedule": get_schedule_from_env(
             "DJINSIGHT_SUMMARIES_SCHEDULE",
             crontab(minute="*/10"),  # Default: every 10 minutes
@@ -90,7 +90,7 @@ app.conf.beat_schedule = {
         },
     },
     "cleanup-old-data": {
-        "task": "djInsight.tasks.cleanup_old_data_task",
+        "task": "djinsight.tasks.cleanup_old_data_task",
         "schedule": get_schedule_from_env(
             "DJINSIGHT_CLEANUP_SCHEDULE",
             crontab(hour=1, minute=0),  # Default: daily at 1:00 AM
@@ -112,7 +112,7 @@ app.conf.update(
     result_serializer="json",
     # Task routing
     task_routes={
-        "djInsight.tasks.*": {"queue": "djinsight"},
+        "djinsight.tasks.*": {"queue": "djinsight"},
     },
     # Task execution
     task_always_eager=getattr(settings, "CELERY_TASK_ALWAYS_EAGER", False),
@@ -139,18 +139,18 @@ def debug_task(self):
 CELERY_BROKER_URL = 'redis://localhost:6379/1'
 CELERY_RESULT_BACKEND = 'redis://localhost:6379/1'
 
-# djInsight specific settings
+# djinsight specific settings
 DJINSIGHT_BATCH_SIZE = 1000
 DJINSIGHT_MAX_RECORDS = 10000
 DJINSIGHT_SUMMARY_DAYS_BACK = 7
 DJINSIGHT_DAYS_TO_KEEP = 90
 
-# Redis settings for djInsight
+# Redis settings for djinsight
 DJINSIGHT_REDIS_HOST = 'localhost'
 DJINSIGHT_REDIS_PORT = 6379
 DJINSIGHT_REDIS_DB = 0
 DJINSIGHT_REDIS_PASSWORD = None
-DJINSIGHT_REDIS_KEY_PREFIX = 'djInsight:pageview:'
+DJINSIGHT_REDIS_KEY_PREFIX = 'djinsight:pageview:'
 DJINSIGHT_REDIS_EXPIRATION = 60 * 60 * 24 * 7  # 7 days
 
 # Enable/disable tracking

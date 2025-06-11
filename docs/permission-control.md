@@ -1,6 +1,6 @@
-# Permission Control in djInsight
+# Permission Control in djinsight
 
-djInsight provides configurable access control for analytics data. By default, statistics are visible to all users, but you can restrict access to administrators only.
+djinsight provides configurable access control for analytics data. By default, statistics are visible to all users, but you can restrict access to administrators only.
 
 ## Configuration
 
@@ -83,7 +83,7 @@ def check_stats_permission(user):
 ### Template Usage
 
 ```html
-{% load djInsight_tags %}
+{% load djinsight_tags %}
 
 <!-- These will respect permission settings -->
 {% total_views_stat %}
@@ -91,13 +91,13 @@ def check_stats_permission(user):
 {% page_analytics_widget %}
 
 <!-- When permission is denied, templates show: -->
-<!-- djInsight: Access denied -->
+<!-- djinsight: Access denied -->
 ```
 
 ### Conditional Display
 
 ```html
-{% load djInsight_tags %}
+{% load djinsight_tags %}
 
 <!-- Check if user has permission before showing analytics section -->
 {% if user.is_staff or not DJINSIGHT_ADMIN_ONLY %}
@@ -117,7 +117,7 @@ When using live counters or AJAX requests:
 // The get_page_stats endpoint will return 403 Forbidden for non-admin users
 // when DJINSIGHT_ADMIN_ONLY = True
 
-fetch('/djInsight/page-stats/', {
+fetch('/djinsight/page-stats/', {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json',
@@ -182,7 +182,7 @@ If you're upgrading from a version without permission control:
 # In your Django shell or tests
 from django.conf import settings
 from django.contrib.auth.models import User
-from djInsight.views import check_stats_permission
+from djinsight.views import check_stats_permission
 
 # Test with different users
 admin_user = User.objects.filter(is_staff=True).first()
@@ -213,7 +213,7 @@ print(f"Regular user can view stats: {check_stats_permission(regular_user)}")
 Enable debug mode in template tags to see permission check results:
 
 ```html
-{% load djInsight_tags %}
+{% load djinsight_tags %}
 {% page_view_tracker debug=True %}
 ```
 
@@ -222,7 +222,7 @@ This will log permission check results to the Django logger.
 ## Related Settings
 
 ```python
-# Complete djInsight configuration with permission control
+# Complete djinsight configuration with permission control
 DJINSIGHT_ADMIN_ONLY = True  # Restrict to admin users
 DJINSIGHT_ENABLE_TRACKING = True  # Enable/disable tracking entirely
 DJINSIGHT_REDIS_HOST = 'localhost'

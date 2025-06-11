@@ -1,11 +1,11 @@
 include README.md
 include LICENSE
 include MANIFEST.in
-recursive-include djInsight/templates *
-recursive-include djInsight/static *
-recursive-include djInsight/migrations *.py
-recursive-include djInsight/management *.py
-recursive-include djInsight/templatetags *.py
+recursive-include djinsight/templates *
+recursive-include djinsight/static *
+recursive-include djinsight/migrations *.py
+recursive-include djinsight/management *.py
+recursive-include djinsight/templatetags *.py
 recursive-exclude * __pycache__
 recursive-exclude * *.py[co]
 recursive-exclude * .DS_Store

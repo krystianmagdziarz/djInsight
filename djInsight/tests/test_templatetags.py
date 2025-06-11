@@ -3,8 +3,8 @@ from django.db import models
 from django.template import Context, Template
 from django.test import RequestFactory, TestCase
 
-from djInsight.models import PageViewStatisticsMixin
-from djInsight.templatetags.djInsight_tags import (
+from djinsight.models import PageViewStatisticsMixin
+from djinsight.templatetags.djinsight_tags import (
     _get_content_type_label,
     _get_object_url,
     _has_view_statistics,
@@ -30,7 +30,7 @@ class TestArticle(models.Model, PageViewStatisticsMixin):
         return self.title
 
     class Meta:
-        app_label = "djInsight"
+        app_label = "djinsight"
 
 
 class TestProduct(models.Model, PageViewStatisticsMixin):
@@ -46,7 +46,7 @@ class TestProduct(models.Model, PageViewStatisticsMixin):
         return f"Product: {self.name}"
 
     class Meta:
-        app_label = "djInsight"
+        app_label = "djinsight"
 
 
 class TestRegularModel(models.Model):
@@ -55,11 +55,11 @@ class TestRegularModel(models.Model):
     name = models.CharField(max_length=100)
 
     class Meta:
-        app_label = "djInsight"
+        app_label = "djinsight"
 
 
 class TemplateTagsTest(TestCase):
-    """Test djInsight template tags"""
+    """Test djinsight template tags"""
 
     def setUp(self):
         self.factory = RequestFactory()
@@ -121,7 +121,7 @@ class TemplateTagsTest(TestCase):
         # Check that JavaScript is returned
         self.assertIn("<script>", result)
         self.assertIn("trackObjectView", result)
-        self.assertIn("djInsight/record-view/", result)
+        self.assertIn("djinsight/record-view/", result)
         self.assertIn(str(self.article.id), result)
         self.assertIn("djinsight.testarticle", result)
 
@@ -284,7 +284,7 @@ class TemplateTagsTest(TestCase):
 
 
 class TemplateRenderingTest(TestCase):
-    """Test template rendering with djInsight tags"""
+    """Test template rendering with djinsight tags"""
 
     def setUp(self):
         self.factory = RequestFactory()
@@ -295,7 +295,7 @@ class TemplateRenderingTest(TestCase):
     def test_page_view_tracker_in_template(self):
         """Test page_view_tracker tag in template"""
         template = Template(
-            "{% load djInsight_tags %}{% page_view_tracker obj=article %}"
+            "{% load djinsight_tags %}{% page_view_tracker obj=article %}"
         )
 
         request = self.factory.get("/")
@@ -312,7 +312,7 @@ class TemplateRenderingTest(TestCase):
     def test_page_stats_display_in_template(self):
         """Test page_stats_display tag in template"""
         template = Template(
-            "{% load djInsight_tags %}{% page_stats_display obj=article %}"
+            "{% load djinsight_tags %}{% page_stats_display obj=article %}"
         )
 
         request = self.factory.get("/")
@@ -327,7 +327,7 @@ class TemplateRenderingTest(TestCase):
 
     def test_format_view_count_in_template(self):
         """Test format_view_count filter in template"""
-        template = Template("{% load djInsight_tags %}{{ count|format_view_count }}")
+        template = Template("{% load djinsight_tags %}{{ count|format_view_count }}")
 
         context = Context({"count": 1234})
         result = template.render(context)
@@ -338,7 +338,7 @@ class TemplateRenderingTest(TestCase):
         """Test backward compatibility aliases for Wagtail"""
         # Test wagtail_page_view_tracker
         template = Template(
-            "{% load djInsight_tags %}{% wagtail_page_view_tracker page=article %}"
+            "{% load djinsight_tags %}{% wagtail_page_view_tracker page=article %}"
         )
 
         request = self.factory.get("/")

@@ -6,7 +6,7 @@ from django.core.management.base import BaseCommand
 
 
 class Command(BaseCommand):
-    help = "Analyze djInsight Redis keys and show breakdown by model"
+    help = "Analyze djinsight Redis keys and show breakdown by model"
 
     def handle(self, *args, **options):
         try:
@@ -16,9 +16,9 @@ class Command(BaseCommand):
             self.stdout.write(self.style.ERROR("Redis connection failed"))
             return
 
-        self.stdout.write(self.style.SUCCESS("=== djInsight Redis Analysis ==="))
+        self.stdout.write(self.style.SUCCESS("=== djinsight Redis Analysis ==="))
 
-        # Get all djInsight keys
+        # Get all djinsight keys
         all_keys = redis_client.keys("djinsight:*")
 
         counters = defaultdict(int)

@@ -102,9 +102,9 @@ def page_view_tracker(context, obj=None, async_load=True, debug=False):
 
     # Get the URL for the record_page_view endpoint
     try:
-        record_url = reverse("djInsight:record_page_view")
+        record_url = reverse("djinsight:record_page_view")
     except NoReverseMatch:
-        record_url = "/djInsight/record-view/"
+        record_url = "/djinsight/record-view/"
         if debug:
             logger.warning(f"Could not reverse URL, using hardcoded path: {record_url}")
 
@@ -112,7 +112,7 @@ def page_view_tracker(context, obj=None, async_load=True, debug=False):
     enable_tracking = getattr(settings, "DJINSIGHT_ENABLE_TRACKING", True)
     if not enable_tracking:
         if debug:
-            return "<!-- djInsight tracking disabled by settings -->"
+            return "<!-- djinsight tracking disabled by settings -->"
         return ""
 
     # Prepare template context
@@ -130,7 +130,7 @@ def page_view_tracker(context, obj=None, async_load=True, debug=False):
     }
 
     return mark_safe(
-        render_to_string("djInsight/tracking_script.html", template_context)
+        render_to_string("djinsight/tracking_script.html", template_context)
     )
 
 
@@ -154,9 +154,9 @@ def page_stats_display(context, obj=None, show_unique=True, refresh_interval=Non
 
     # Get the URL for the stats endpoint
     try:
-        stats_url = reverse("djInsight:get_page_stats")
+        stats_url = reverse("djinsight:get_page_stats")
     except NoReverseMatch:
-        stats_url = "/djInsight/page-stats/"
+        stats_url = "/djinsight/page-stats/"
 
     # Generate unique ID for this stats display
     stats_id = f"djinsight-stats-{uuid.uuid4().hex[:8]}"
@@ -178,7 +178,7 @@ def page_stats_display(context, obj=None, show_unique=True, refresh_interval=Non
         "refresh_interval": refresh_interval_ms,
     }
 
-    return mark_safe(render_to_string("djInsight/stats_display.html", template_context))
+    return mark_safe(render_to_string("djinsight/stats_display.html", template_context))
 
 
 @register.filter
@@ -203,7 +203,7 @@ def format_view_count(count):
 
 
 # Individual statistics components
-@register.inclusion_tag("djInsight/stats/total_views.html", takes_context=True)
+@register.inclusion_tag("djinsight/stats/total_views.html", takes_context=True)
 def total_views_stat(context, obj=None):
     """Display total views statistic"""
     # Check permissions first
@@ -218,7 +218,7 @@ def total_views_stat(context, obj=None):
     }
 
 
-@register.inclusion_tag("djInsight/stats/unique_views.html", takes_context=True)
+@register.inclusion_tag("djinsight/stats/unique_views.html", takes_context=True)
 def unique_views_stat(context, obj=None):
     """Display unique views statistic"""
     # Check permissions first
@@ -233,7 +233,7 @@ def unique_views_stat(context, obj=None):
     }
 
 
-@register.inclusion_tag("djInsight/stats/last_viewed.html", takes_context=True)
+@register.inclusion_tag("djinsight/stats/last_viewed.html", takes_context=True)
 def last_viewed_stat(context, obj=None):
     """Display last viewed statistic"""
     # Check permissions first
@@ -248,7 +248,7 @@ def last_viewed_stat(context, obj=None):
     }
 
 
-@register.inclusion_tag("djInsight/stats/first_viewed.html", takes_context=True)
+@register.inclusion_tag("djinsight/stats/first_viewed.html", takes_context=True)
 def first_viewed_stat(context, obj=None):
     """Display first viewed statistic"""
     # Check permissions first
@@ -263,7 +263,7 @@ def first_viewed_stat(context, obj=None):
     }
 
 
-@register.inclusion_tag("djInsight/stats/views_today.html", takes_context=True)
+@register.inclusion_tag("djinsight/stats/views_today.html", takes_context=True)
 def views_today_stat(context, obj=None):
     """Display views today statistic"""
     # Check permissions first
@@ -285,7 +285,7 @@ def views_today_stat(context, obj=None):
     }
 
 
-@register.inclusion_tag("djInsight/stats/views_week.html", takes_context=True)
+@register.inclusion_tag("djinsight/stats/views_week.html", takes_context=True)
 def views_week_stat(context, obj=None):
     """Display views this week statistic"""
     # Check permissions first
@@ -307,7 +307,7 @@ def views_week_stat(context, obj=None):
     }
 
 
-@register.inclusion_tag("djInsight/stats/views_month.html", takes_context=True)
+@register.inclusion_tag("djinsight/stats/views_month.html", takes_context=True)
 def views_month_stat(context, obj=None):
     """Display views this month statistic"""
     # Check permissions first
@@ -329,7 +329,7 @@ def views_month_stat(context, obj=None):
     }
 
 
-@register.inclusion_tag("djInsight/stats/live_counter.html", takes_context=True)
+@register.inclusion_tag("djinsight/stats/live_counter.html", takes_context=True)
 def live_stats_counter(context, obj=None, show_unique=True, refresh_interval=30):
     """Display live statistics counter with auto-refresh"""
     # Check permissions first
@@ -347,7 +347,7 @@ def live_stats_counter(context, obj=None, show_unique=True, refresh_interval=30)
 
 
 # Composite components
-@register.inclusion_tag("djInsight/page_analytics.html", takes_context=True)
+@register.inclusion_tag("djinsight/page_analytics.html", takes_context=True)
 def page_analytics_widget(context, obj=None, period="week"):
     """
     Include template tag for displaying a complete analytics widget.
@@ -419,7 +419,7 @@ def wagtail_page_stats_display(
     )
 
 
-@register.inclusion_tag("djInsight/page_analytics.html", takes_context=True)
+@register.inclusion_tag("djinsight/page_analytics.html", takes_context=True)
 def wagtail_page_analytics_widget(context, page=None, period="week"):
     """Backward compatibility alias for Wagtail pages"""
     return page_analytics_widget(context, obj=page, period=period)

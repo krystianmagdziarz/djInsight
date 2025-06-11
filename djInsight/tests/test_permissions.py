@@ -4,8 +4,8 @@ from django.contrib.auth.models import AnonymousUser, User
 from django.template import Context, Template
 from django.test import RequestFactory, TestCase, override_settings
 
-from djInsight.templatetags.djinsight_tags import _check_stats_permission
-from djInsight.views import check_stats_permission
+from djinsight.templatetags.djinsight_tags import _check_stats_permission
+from djinsight.views import check_stats_permission
 
 
 class PermissionControlTestCase(TestCase):
@@ -89,7 +89,7 @@ class PermissionControlTestCase(TestCase):
     def test_get_page_stats_view_permission_denied(self):
         """Test that get_page_stats view denies access to non-admin users when admin_only is enabled"""
         request = self.factory.post(
-            "/djInsight/page-stats/",
+            "/djinsight/page-stats/",
             data=json.dumps({"page_id": 1}),
             content_type="application/json",
         )
@@ -104,7 +104,7 @@ class PermissionControlTestCase(TestCase):
     def test_get_page_stats_view_permission_allowed(self):
         """Test that get_page_stats view allows access to admin users when admin_only is enabled"""
         request = self.factory.post(
-            "/djInsight/page-stats/",
+            "/djinsight/page-stats/",
             data=json.dumps({"page_id": 1}),
             content_type="application/json",
         )
@@ -116,7 +116,7 @@ class PermissionControlTestCase(TestCase):
     def test_template_rendering_with_no_permission(self):
         """Test that template tags render correctly when permission is denied"""
         template_content = """
-        {% load djInsight_tags %}
+        {% load djinsight_tags %}
         {% total_views_stat %}
         """
 
@@ -127,7 +127,7 @@ class PermissionControlTestCase(TestCase):
         rendered = template.render(context)
 
         # Should contain access denied comment
-        self.assertIn("djInsight: Access denied", rendered)
+        self.assertIn("djinsight: Access denied", rendered)
 
     @override_settings(DJINSIGHT_ADMIN_ONLY=False)
     def test_default_setting_value(self):

@@ -1,5 +1,5 @@
 """
-Celery configuration for example project with djInsight.
+Celery configuration for example project with djinsight.
 """
 
 import os
@@ -19,10 +19,10 @@ app.config_from_object("django.conf:settings", namespace="CELERY")
 # Load task modules from all registered Django app configs.
 app.autodiscover_tasks()
 
-# djInsight periodic tasks - z nowymi częstotliwościami
+# djinsight periodic tasks - z nowymi częstotliwościami
 app.conf.beat_schedule = {
     "process-page-views-every-10-seconds": {
-        "task": "djInsight.tasks.process_page_views_task",
+        "task": "djinsight.tasks.process_page_views_task",
         "schedule": 10.0,  # Co 10 sekund
         "kwargs": {
             "batch_size": 1000,
@@ -30,14 +30,14 @@ app.conf.beat_schedule = {
         },
     },
     "generate-daily-summaries-every-10-minutes": {
-        "task": "djInsight.tasks.generate_daily_summaries_task",
+        "task": "djinsight.tasks.generate_daily_summaries_task",
         "schedule": crontab(minute="*/10"),  # Co 10 minut
         "kwargs": {
             "days_back": 7,
         },
     },
     "cleanup-old-data-daily-at-1am": {
-        "task": "djInsight.tasks.cleanup_old_data_task",
+        "task": "djinsight.tasks.cleanup_old_data_task",
         "schedule": crontab(hour=1, minute=0),  # Codziennie o 1:00
         "kwargs": {
             "days_to_keep": 30,  # Krócej dla example

@@ -1,7 +1,7 @@
 <script>
 (function() {
     {% if debug %}
-    console.log('[djInsight] Object view tracking enabled');
+    console.log('[djinsight] Object view tracking enabled');
     {% endif %}
     
     function trackObjectView() {
@@ -19,21 +19,21 @@
         })
         .then(function(response) {
             if (!response.ok) {
-                console.error('{% if debug %}[djInsight] {% endif %}Error recording object view:', response.status, response.statusText);
+                console.error('{% if debug %}[djinsight] {% endif %}Error recording object view:', response.status, response.statusText);
             }
             return response.json();
         })
         .then(function(data) {
             if (data.status === 'success') {
                 {% if debug %}
-                console.log('[djInsight] Object view recorded successfully:', data);
+                console.log('[djinsight] Object view recorded successfully:', data);
                 {% endif %}
             } else {
-                console.error('{% if debug %}[djInsight] {% endif %}Error recording object view:', data.message);
+                console.error('{% if debug %}[djinsight] {% endif %}Error recording object view:', data.message);
             }
         })
         .catch(function(error) {
-            console.error('{% if debug %}[djInsight] {% endif %}Network error recording object view:', error);
+            console.error('{% if debug %}[djinsight] {% endif %}Network error recording object view:', error);
         });
     }
     

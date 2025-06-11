@@ -1,1 +1,1 @@
-# djInsight management module
+# djinsight management module

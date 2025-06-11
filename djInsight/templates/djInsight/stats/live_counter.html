@@ -1,6 +1,6 @@
-{% load djInsight_tags %}
+{% load djinsight_tags %}
 {% if no_permission %}
-    <!-- djInsight: Access denied -->
+    <!-- djinsight: Access denied -->
 {% else %}
 <div class="djinsight-live-counter" id="djinsight-live-{{ obj.id }}" data-object-id="{{ obj.id }}" data-content-type="{{ content_type }}" data-refresh-interval="{{ refresh_interval }}">
     <div class="djinsight-counter-display">
@@ -42,7 +42,7 @@
     }
     
     function updateStats() {
-        fetch('{% url "djInsight:get_page_stats" %}', {
+        fetch('{% url "djinsight:get_page_stats" %}', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -64,7 +64,7 @@
             }
         })
         .catch(error => {
-            console.error('djInsight: Error updating stats:', error);
+            console.error('djinsight: Error updating stats:', error);
             statusElement.className = 'djinsight-counter-status djinsight-status-error';
         });
     }

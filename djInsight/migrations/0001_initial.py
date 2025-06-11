@@ -111,18 +111,18 @@ class Migration(migrations.Migration):
                 "indexes": [
                     models.Index(
                         fields=["page_id", "timestamp"],
-                        name="djInsight_p_page_id_a3ba77_idx",
+                        name="djinsight_p_page_id_a3ba77_idx",
                     ),
                     models.Index(
                         fields=["content_type", "timestamp"],
-                        name="djInsight_p_content_7eddbf_idx",
+                        name="djinsight_p_content_7eddbf_idx",
                     ),
                     models.Index(
                         fields=["session_key", "page_id"],
-                        name="djInsight_p_session_b10779_idx",
+                        name="djinsight_p_session_b10779_idx",
                     ),
                     models.Index(
-                        fields=["timestamp"], name="djInsight_p_timesta_9d0cb4_idx"
+                        fields=["timestamp"], name="djinsight_p_timesta_9d0cb4_idx"
                     ),
                 ],
             },
@@ -187,13 +187,13 @@ class Migration(migrations.Migration):
                 "indexes": [
                     models.Index(
                         fields=["page_id", "date"],
-                        name="djInsight_p_page_id_cd69db_idx",
+                        name="djinsight_p_page_id_cd69db_idx",
                     ),
                     models.Index(
                         fields=["content_type", "date"],
-                        name="djInsight_p_content_07ac79_idx",
+                        name="djinsight_p_content_07ac79_idx",
                     ),
-                    models.Index(fields=["date"], name="djInsight_p_date_fbf615_idx"),
+                    models.Index(fields=["date"], name="djinsight_p_date_fbf615_idx"),
                 ],
                 "unique_together": {("page_id", "date")},
             },

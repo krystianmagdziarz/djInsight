@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.5] - 2025-01-27
+
+### Changed
+- **📦 Package Name Standardization**
+  - Renamed package from `djInsight` to `djinsight` for Python naming convention compliance
+  - Updated all internal references to use lowercase package name
+  - Maintained backward compatibility for existing installations
+  - No breaking changes - all import paths remain the same
+
+### Documentation
+- **📖 README Enhancements**
+  - Added Django compatibility badges
+  - Added Wagtail compatibility badges
+  - Enhanced project metadata display
+
 ## [0.1.4] - 2025-01-27
 
 ### Added
@@ -145,7 +160,7 @@ All notable changes to this project will be documented in this file.
 ## [0.1.0] - 2025-06-06
 
 ### Added
-- Initial release of djInsight
+- Initial release of djinsight
 - Real-time page view tracking with Redis backend
 - Django/Wagtail model integration via PageViewStatisticsMixin
 - Session-based unique visitor tracking
@@ -170,8 +185,8 @@ All notable changes to this project will be documented in this file.
 - `PageViewSummary` - Daily aggregated statistics
 
 ### API Endpoints
-- `POST /djInsight/record-view/` - Record page views
-- `POST /djInsight/page-stats/` - Get real-time statistics
+- `POST /djinsight/record-view/` - Record page views
+- `POST /djinsight/page-stats/` - Get real-time statistics
 
 ### Configuration Options
 - Redis connection settings

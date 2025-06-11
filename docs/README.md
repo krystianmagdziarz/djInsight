@@ -1,6 +1,6 @@
-# 📊 djInsight Documentation
+# 📊 djinsight Documentation
 
-Complete documentation for djInsight - a high-performance Django/Wagtail analytics package.
+Complete documentation for djinsight - a high-performance Django/Wagtail analytics package.
 
 ## 📚 Table of Contents
 
@@ -21,26 +21,26 @@ Complete documentation for djInsight - a high-performance Django/Wagtail analyti
 - [⚙️ Management Commands](management-commands.md) - CLI tools and commands
 
 ### 👨‍💻 Development
-- [🤝 Contributing](contributing.md) - How to contribute to djInsight
+- [🤝 Contributing](contributing.md) - How to contribute to djinsight
 - [📄 License](license.md) - License information
 - [🔄 Changelog](../CHANGELOG.md) - Version history
 
 ### 📷 Screenshots
-- [🖼️ Demo Gallery](demo-gallery.md) - Visual showcase of djInsight features
+- [🖼️ Demo Gallery](demo-gallery.md) - Visual showcase of djinsight features
 
 ## 🔗 Quick Links
 
-- [📦 PyPI Package](https://pypi.org/project/djInsight/)
-- [🐙 GitHub Repository](https://github.com/krystianmagdziarz/djInsight)
-- [🐛 Issue Tracker](https://github.com/krystianmagdziarz/djInsight/issues)
-- [💬 Discussions](https://github.com/krystianmagdziarz/djInsight/discussions)
+- [📦 PyPI Package](https://pypi.org/project/djinsight/)
+- [🐙 GitHub Repository](https://github.com/krystianmagdziarz/djinsight)
+- [🐛 Issue Tracker](https://github.com/krystianmagdziarz/djinsight/issues)
+- [💬 Discussions](https://github.com/krystianmagdziarz/djinsight/discussions)
 
 ## 🆘 Need Help?
 
 - Check the [FAQ](faq.md) for common questions
 - Browse [Template Examples](template-examples.md) for implementation ideas  
-- Search [Issues](https://github.com/krystianmagdziarz/djInsight/issues) for known problems
-- Create a [Discussion](https://github.com/krystianmagdziarz/djInsight/discussions) for questions
+- Search [Issues](https://github.com/krystianmagdziarz/djinsight/issues) for known problems
+- Create a [Discussion](https://github.com/krystianmagdziarz/djinsight/discussions) for questions
 
 ## 📋 Requirements
 

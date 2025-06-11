@@ -2,7 +2,7 @@ from django.db import models
 from django.urls import reverse
 from django.utils import timezone
 
-from djInsight.models import PageViewStatisticsMixin
+from djinsight.models import PageViewStatisticsMixin
 
 
 class Article(PageViewStatisticsMixin, models.Model):

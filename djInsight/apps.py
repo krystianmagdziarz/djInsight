@@ -2,9 +2,9 @@ from django.apps import AppConfig
 
 
 class DjInsightConfig(AppConfig):
-    name = 'djInsight'
-    verbose_name = 'djInsight'
-    
+    name = "djinsight"
+    verbose_name = "djinsight"
+
     def ready(self):
         # Import signal handlers
         pass

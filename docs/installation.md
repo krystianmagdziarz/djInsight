@@ -1,16 +1,16 @@
 # 📦 Installation Guide
 
-This guide will walk you through installing and setting up djInsight in your Django/Wagtail project.
+This guide will walk you through installing and setting up djinsight in your Django/Wagtail project.
 
 ## 🚀 Quick Installation
 
 ```bash
-pip install djInsight
+pip install djinsight
 ```
 
 ## 📋 Prerequisites
 
-Before installing djInsight, ensure you have:
+Before installing djinsight, ensure you have:
 
 - 🐍 **Python 3.8+**
 - 🎯 **Django 3.2+** 
@@ -46,7 +46,7 @@ redis-cli ping
 
 ## ⚙️ Python Dependencies
 
-djInsight automatically installs these dependencies:
+djinsight automatically installs these dependencies:
 
 ```bash
 # Core dependencies (installed automatically)
@@ -59,9 +59,9 @@ django-redis>=5.0.0
 
 ## 🎯 Django Project Setup
 
-### 1. Install djInsight
+### 1. Install djinsight
 ```bash
-pip install djInsight
+pip install djinsight
 ```
 
 ### 2. Add to INSTALLED_APPS
@@ -78,8 +78,8 @@ INSTALLED_APPS = [
     # Required for Celery periodic tasks
     'django_celery_beat',
     
-    # Add djInsight
-    'djInsight',
+    # Add djinsight
+    'djinsight',
     
     # Your apps
     'myapp',
@@ -119,7 +119,7 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('djinsight/', include('djInsight.urls')),
+    path('djinsight/', include('djinsight.urls')),
     # ... your other URLs
 ]
 ```
@@ -168,7 +168,7 @@ celery -A your_project beat --loglevel=info
 
 ### ⏰ Optional: Configure Task Schedules
 
-djInsight uses these default schedules:
+djinsight uses these default schedules:
 - **Process page views**: Every 10 seconds
 - **Generate summaries**: Every 10 minutes
 - **Cleanup old data**: Daily at 1:00 AM
@@ -190,7 +190,7 @@ celery -A your_project beat --loglevel=info
 ## ✅ Verify Installation
 
 ### 1. Check Django Admin
-Visit `/admin/` and verify djInsight models are available.
+Visit `/admin/` and verify djinsight models are available.
 
 ### 2. Test Redis Connection
 ```python
@@ -198,14 +198,14 @@ Visit `/admin/` and verify djInsight models are available.
 python manage.py shell
 
 from django.core.cache import cache
-cache.set('test', 'Hello djInsight!')
-print(cache.get('test'))  # Should print: Hello djInsight!
+cache.set('test', 'Hello djinsight!')
+print(cache.get('test'))  # Should print: Hello djinsight!
 ```
 
 ### 3. Test Celery Tasks
 ```python
 # In Django shell
-from djInsight.tasks import process_page_views_task
+from djinsight.tasks import process_page_views_task
 result = process_page_views_task.delay()
 print(result.status)  # Should print: SUCCESS or PENDING
 ```
@@ -240,15 +240,15 @@ celery -A your_project worker --loglevel=info
 ### Django Issues
 ```bash
 # Check for migration issues
-python manage.py showmigrations djInsight
+python manage.py showmigrations djinsight
 
 # Re-run migrations
-python manage.py migrate djInsight
+python manage.py migrate djinsight
 
 # Check URL configuration
 python manage.py shell
 from django.urls import reverse
-print(reverse('djInsight:record_view'))
+print(reverse('djinsight:record_view'))
 ```
 
 ## 🔧 Optional Configuration

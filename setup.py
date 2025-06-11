@@ -9,15 +9,15 @@ with open(os.path.join(os.path.dirname(__file__), "README.md")) as readme:
 os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
-    name="djInsight",
-    version="0.1.4",
+    name="djinsight",
+    version="0.1.5",
     packages=find_packages(),
     include_package_data=True,
     license="MIT",
     description="A Django/Wagtail package for tracking page view statistics with Redis and async processing",
     long_description=README,
     long_description_content_type="text/markdown",
-    url="https://github.com/krystianmagdziarz/djInsight",
+    url="https://github.com/krystianmagdziarz/djinsight",
     author="MDigital",
     author_email="kontakt@mdigital.com.pl",
     classifiers=[

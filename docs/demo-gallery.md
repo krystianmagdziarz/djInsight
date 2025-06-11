@@ -1,6 +1,6 @@
 # 🖼️ Demo Gallery
 
-Visual showcase of djInsight features and capabilities.
+Visual showcase of djinsight features and capabilities.
 
 ## 📱 Articles List
 
@@ -20,7 +20,7 @@ Visual showcase of djInsight features and capabilities.
 
 ![Article Detail View](images/2.png)
 
-**Overview:** Individual article page demonstrating djInsight's modular template system with comprehensive analytics sidebar.
+**Overview:** Individual article page demonstrating djinsight's modular template system with comprehensive analytics sidebar.
 
 **Features shown:**
 - 📊 **Quick Stats** - Total views, unique visitors, last viewed timestamp
@@ -35,7 +35,7 @@ Visual showcase of djInsight features and capabilities.
 
 ![Analytics Components](images/3.png)
 
-**Overview:** Comprehensive demonstration of djInsight's modular template tags and component system.
+**Overview:** Comprehensive demonstration of djinsight's modular template tags and component system.
 
 **Features shown:**
 - 🧩 **Individual Statistics Components** - Total views, unique views, last viewed
@@ -50,7 +50,7 @@ Visual showcase of djInsight features and capabilities.
 
 ![Product Analytics](images/4.png)
 
-**Overview:** Product page showcasing djInsight's cross-content type support with e-commerce specific features.
+**Overview:** Product page showcasing djinsight's cross-content type support with e-commerce specific features.
 
 **Features shown:**
 - 🛍️ **Product Analytics** - View tracking for e-commerce items
@@ -79,7 +79,7 @@ Visual showcase of djInsight features and capabilities.
 ## 🎨 Key Design Principles
 
 ### 📱 **Responsive Design**
-All djInsight components are built with mobile-first responsive design, ensuring analytics look great on any device.
+All djinsight components are built with mobile-first responsive design, ensuring analytics look great on any device.
 
 ### 🎯 **Modular Architecture**  
 Individual template tags can be mixed and matched to create custom analytics displays that fit your design.
@@ -94,14 +94,14 @@ Works with Bootstrap, Tailwind, custom CSS, or any frontend framework you're usi
 
 ### Basic Integration
 ```html
-{% load djInsight_tags %}
+{% load djinsight_tags %}
 {% page_view_tracker obj=article %}
 <p>Views: {% total_views_stat obj=article %}</p>
 ```
 
 ### Advanced Dashboard
 ```html
-{% load djInsight_tags %}
+{% load djinsight_tags %}
 <div class="analytics-dashboard">
     {% for item in popular_content %}
         <div class="item-card">
@@ -114,7 +114,7 @@ Works with Bootstrap, Tailwind, custom CSS, or any frontend framework you're usi
 
 ### E-commerce Integration
 ```html
-{% load djInsight_tags %}
+{% load djinsight_tags %}
 {% page_view_tracker obj=product %}
 {% total_views_stat obj=product as views %}
 {% if views > 100 %}
@@ -124,7 +124,7 @@ Works with Bootstrap, Tailwind, custom CSS, or any frontend framework you're usi
 
 ## 🔗 Try It Yourself
 
-1. **📦 Install djInsight** - Follow the [Installation Guide](installation.md)
+1. **📦 Install djinsight** - Follow the [Installation Guide](installation.md)
 2. **⚡ Quick Start** - Get running in 5 minutes with [Quick Start](quick-start.md)  
 3. **🎨 Customize** - Explore [Template Examples](template-examples.md) for ideas
 4. **📊 Advanced** - Check [Analytics Usage](analytics.md) for advanced features 
