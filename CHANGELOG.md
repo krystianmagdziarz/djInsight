@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.6] - 2025-01-27
+
+### Added
+- **🚀 Database Performance Optimization**
+  - Added optimized database indexes for improved query performance
+  - New migration `0002_rename_djinsight_p_page_id_a3ba77_idx_djinsight_p_page_id_f86134_idx_and_more.py`
+  - Enhanced database index naming for better clarity and management
+  - Improved query performance for page view statistics retrieval
+
+### Changed
+- **📦 Package Version Update**
+  - Version bump to 0.1.6 for new PyPI release
+  - Updated package metadata across all configuration files
+  - Maintained compatibility with existing installations
+
+
 ## [0.1.5] - 2025-01-27
 
 ### Changed
