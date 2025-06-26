@@ -55,6 +55,7 @@ wagtail>=3.0
 redis>=4.0.0
 celery>=5.0.0
 django-redis>=5.0.0
+django-environ>=0.9.0  # For environment variable configuration
 ```
 
 ## 🎯 Django Project Setup

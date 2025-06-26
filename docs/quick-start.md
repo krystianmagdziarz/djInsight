@@ -156,6 +156,44 @@ celery -A your_project beat --loglevel=info
 
 📖 **See:** [Configuration Guide](configuration.md#celery-schedule-settings) for more schedule options.
 
+### 🎛️ Optional: Task Performance Configuration
+
+Configure task parameters and timeouts for optimal performance:
+
+```bash
+# Task processing parameters
+export DJINSIGHT_BATCH_SIZE=1000              # Records per batch (default: 1000)
+export DJINSIGHT_MAX_RECORDS=10000            # Max records per task run (default: 10000)
+export DJINSIGHT_SUMMARY_DAYS_BACK=1          # Days back for summaries (default: 1)
+export DJINSIGHT_CLEANUP_DAYS_TO_KEEP=90      # Days to keep logs (default: 90)
+
+# Task timeout configuration (in seconds)
+export DJINSIGHT_PROCESS_TASK_TIME_LIMIT=1800       # 30 min hard limit
+export DJINSIGHT_PROCESS_TASK_SOFT_TIME_LIMIT=1500  # 25 min soft limit
+export DJINSIGHT_SUMMARY_TASK_TIME_LIMIT=900        # 15 min hard limit
+export DJINSIGHT_SUMMARY_TASK_SOFT_TIME_LIMIT=720   # 12 min soft limit
+export DJINSIGHT_CLEANUP_TASK_TIME_LIMIT=3600       # 60 min hard limit
+export DJINSIGHT_CLEANUP_TASK_SOFT_TIME_LIMIT=3300  # 55 min soft limit
+```
+
+**For smaller applications (< 100k views/day):**
+```bash
+export DJINSIGHT_BATCH_SIZE=500
+export DJINSIGHT_MAX_RECORDS=5000
+export DJINSIGHT_PROCESS_TASK_TIME_LIMIT=600    # 10 minutes
+export DJINSIGHT_PROCESS_TASK_SOFT_TIME_LIMIT=480  # 8 minutes
+```
+
+**For larger applications (> 1M views/day):**
+```bash
+export DJINSIGHT_BATCH_SIZE=2000
+export DJINSIGHT_MAX_RECORDS=50000
+export DJINSIGHT_PROCESS_TASK_TIME_LIMIT=3600   # 60 minutes
+export DJINSIGHT_PROCESS_TASK_SOFT_TIME_LIMIT=3300  # 55 minutes
+```
+
+📖 **See:** [Configuration Guide](configuration.md#task-timeout-settings) for complete timeout documentation.
+
 ## ✅ Step 5: Test It Works
 
 1. **Visit your page** - Go to a page with djinsight tracking

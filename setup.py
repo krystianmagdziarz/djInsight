@@ -10,7 +10,7 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
     name="djinsight",
-    version="0.1.6",
+    version="0.1.7",
     packages=find_packages(),
     include_package_data=True,
     license="MIT",
@@ -52,6 +52,7 @@ setup(
         "redis>=4.0.0",
         "celery>=5.0.0",
         "django-redis>=5.0.0",
+        "django-environ>=0.9.0",
     ],
     extras_require={
         "dev": [

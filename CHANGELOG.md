@@ -2,6 +2,65 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.7] - 2025-01-27
+
+### Added
+- **🌍 Environment Variable Configuration System**
+  - Added `django-environ>=0.9.0` as a new dependency for environment variable management
+  - All task parameters now configurable via environment variables:
+    - `DJINSIGHT_BATCH_SIZE` - Number of records per processing batch (default: 1000)
+    - `DJINSIGHT_MAX_RECORDS` - Maximum records per task run (default: 10000)
+    - `DJINSIGHT_SUMMARY_DAYS_BACK` - Days back for summary generation (default: 1)
+    - `DJINSIGHT_CLEANUP_DAYS_TO_KEEP` - Days to keep page view logs (default: 90)
+
+- **⏱️ Celery Task Timeout Configuration**
+  - Comprehensive timeout settings for all background tasks to prevent hanging workers
+  - **Processing Task Timeouts:**
+    - `DJINSIGHT_PROCESS_TASK_TIME_LIMIT` - Hard timeout (default: 1800s = 30 min)
+    - `DJINSIGHT_PROCESS_TASK_SOFT_TIME_LIMIT` - Soft timeout (default: 1500s = 25 min)
+  - **Summary Generation Timeouts:**
+    - `DJINSIGHT_SUMMARY_TASK_TIME_LIMIT` - Hard timeout (default: 900s = 15 min)
+    - `DJINSIGHT_SUMMARY_TASK_SOFT_TIME_LIMIT` - Soft timeout (default: 720s = 12 min)
+  - **Cleanup Task Timeouts:**
+    - `DJINSIGHT_CLEANUP_TASK_TIME_LIMIT` - Hard timeout (default: 3600s = 60 min)
+    - `DJINSIGHT_CLEANUP_TASK_SOFT_TIME_LIMIT` - Soft timeout (default: 3300s = 55 min)
+
+### Enhanced
+- **🔧 Task Parameter Flexibility**
+  - All Celery task functions now use `django-environ` for parameter defaults
+  - Clean and elegant environment variable integration directly in function signatures
+  - Maintains backward compatibility - parameters can still be passed directly
+  - Environment variables override defaults but explicit parameters override environment variables
+
+- **🛡️ Production Reliability**
+  - Timeout configuration prevents runaway tasks from blocking Celery workers
+  - Soft timeouts allow graceful task termination with cleanup
+  - Hard timeouts ensure tasks are forcefully terminated if needed
+  - Configurable timeouts adapt to different application scales and environments
+
+### Documentation
+- **📖 Complete Environment Configuration Guide**
+  - Updated `docs/configuration.md` with comprehensive timeout and parameter documentation
+  - Added environment variable examples for small and large applications
+  - Production-ready Kubernetes deployment examples with full environment configuration
+  - Enhanced `docs/quick-start.md` with performance tuning section
+  - Updated `docs/installation.md` with new dependency requirements
+  - Added environment configuration section to main README.md
+
+### Technical Details
+- **🏗️ Code Architecture Improvements**
+  - Added `get_env_int()` helper function for safe environment variable parsing with validation
+  - Enhanced error handling for invalid environment variable values
+  - Comprehensive docstring updates for all task functions with environment variable documentation
+  - Clean separation between task configuration and business logic
+
+### Migration Notes
+- **⚡ Zero Breaking Changes**
+  - All existing configurations continue to work without modification
+  - New environment variables provide additional configuration options
+  - Default values match previous hardcoded values for seamless upgrades
+  - Enhanced functionality is opt-in through environment variable configuration
+
 ## [0.1.6] - 2025-01-27
 
 ### Added

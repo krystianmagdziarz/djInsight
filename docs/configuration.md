@@ -200,7 +200,8 @@ DJINSIGHT_ENABLE_TRACKING = False  # Disable all tracking
 ### DJINSIGHT_BATCH_SIZE
 
 **Default:** `1000`  
-**Type:** Integer
+**Type:** Integer  
+**Environment Variable:** `DJINSIGHT_BATCH_SIZE`
 
 Number of view records to process in each Celery batch.
 
@@ -208,6 +209,53 @@ Number of view records to process in each Celery batch.
 DJINSIGHT_BATCH_SIZE = 1000    # Default batch size
 DJINSIGHT_BATCH_SIZE = 500     # Smaller batches for limited memory
 DJINSIGHT_BATCH_SIZE = 2000    # Larger batches for better performance
+```
+
+```bash
+# Environment variable usage
+export DJINSIGHT_BATCH_SIZE=1500
+```
+
+### DJINSIGHT_MAX_RECORDS
+
+**Default:** `10000`  
+**Type:** Integer  
+**Environment Variable:** `DJINSIGHT_MAX_RECORDS`
+
+Maximum number of records to process in a single task run.
+
+```bash
+# Environment variable usage
+export DJINSIGHT_MAX_RECORDS=20000    # Process more records per run
+export DJINSIGHT_MAX_RECORDS=5000     # Process fewer records per run
+```
+
+### DJINSIGHT_SUMMARY_DAYS_BACK
+
+**Default:** `1`  
+**Type:** Integer  
+**Environment Variable:** `DJINSIGHT_SUMMARY_DAYS_BACK`
+
+Number of days back to process when generating daily summaries.
+
+```bash
+# Environment variable usage
+export DJINSIGHT_SUMMARY_DAYS_BACK=7     # Process last 7 days
+export DJINSIGHT_SUMMARY_DAYS_BACK=1     # Process only yesterday (default)
+```
+
+### DJINSIGHT_CLEANUP_DAYS_TO_KEEP
+
+**Default:** `90`  
+**Type:** Integer  
+**Environment Variable:** `DJINSIGHT_CLEANUP_DAYS_TO_KEEP`
+
+Number of days of page view logs to keep before cleanup.
+
+```bash
+# Environment variable usage
+export DJINSIGHT_CLEANUP_DAYS_TO_KEEP=180  # Keep logs for 6 months
+export DJINSIGHT_CLEANUP_DAYS_TO_KEEP=30   # Keep logs for 1 month
 ```
 
 ### DJINSIGHT_MAX_RETRIES
@@ -221,6 +269,107 @@ Maximum number of retry attempts for failed Celery tasks.
 DJINSIGHT_MAX_RETRIES = 3    # Default retries
 DJINSIGHT_MAX_RETRIES = 5    # More retries for unreliable connections
 DJINSIGHT_MAX_RETRIES = 1    # Fewer retries for fast failure
+```
+
+## ⏱️ Task Timeout Settings
+
+Configure timeout limits for Celery tasks to prevent hanging tasks and optimize resource usage.
+
+### Processing Task Timeouts
+
+**Task:** `process_page_views_task`
+
+```bash
+# Hard timeout - task is killed after this time
+export DJINSIGHT_PROCESS_TASK_TIME_LIMIT=1800      # 30 minutes (default)
+
+# Soft timeout - task gets SIGTERM signal
+export DJINSIGHT_PROCESS_TASK_SOFT_TIME_LIMIT=1500 # 25 minutes (default)
+```
+
+### Summary Generation Timeouts
+
+**Task:** `generate_daily_summaries_task`
+
+```bash
+# Hard timeout for summary generation
+export DJINSIGHT_SUMMARY_TASK_TIME_LIMIT=900       # 15 minutes (default)
+
+# Soft timeout for summary generation  
+export DJINSIGHT_SUMMARY_TASK_SOFT_TIME_LIMIT=720  # 12 minutes (default)
+```
+
+### Cleanup Task Timeouts
+
+**Task:** `cleanup_old_data_task`
+
+```bash
+# Hard timeout for cleanup (longest running task)
+export DJINSIGHT_CLEANUP_TASK_TIME_LIMIT=3600      # 60 minutes (default)
+
+# Soft timeout for cleanup
+export DJINSIGHT_CLEANUP_TASK_SOFT_TIME_LIMIT=3300 # 55 minutes (default)
+```
+
+### Timeout Configuration Examples
+
+**Small Application (faster timeouts):**
+```bash
+# For applications with < 100k page views/day
+export DJINSIGHT_PROCESS_TASK_TIME_LIMIT=600       # 10 minutes
+export DJINSIGHT_PROCESS_TASK_SOFT_TIME_LIMIT=480  # 8 minutes
+export DJINSIGHT_SUMMARY_TASK_TIME_LIMIT=300       # 5 minutes
+export DJINSIGHT_SUMMARY_TASK_SOFT_TIME_LIMIT=240  # 4 minutes
+export DJINSIGHT_CLEANUP_TASK_TIME_LIMIT=1800      # 30 minutes
+export DJINSIGHT_CLEANUP_TASK_SOFT_TIME_LIMIT=1500 # 25 minutes
+```
+
+**Large Application (longer timeouts):**
+```bash
+# For applications with > 1M page views/day
+export DJINSIGHT_PROCESS_TASK_TIME_LIMIT=3600      # 60 minutes
+export DJINSIGHT_PROCESS_TASK_SOFT_TIME_LIMIT=3300 # 55 minutes
+export DJINSIGHT_SUMMARY_TASK_TIME_LIMIT=1800 # 30 minutes
+export DJINSIGHT_SUMMARY_TASK_SOFT_TIME_LIMIT=1500 # 25 minutes
+export DJINSIGHT_CLEANUP_TASK_TIME_LIMIT=7200      # 2 hours
+export DJINSIGHT_CLEANUP_TASK_SOFT_TIME_LIMIT=6900 # 1h 55min
+```
+
+**Production Kubernetes Example:**
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: celery-worker
+spec:
+  template:
+    spec:
+      containers:
+      - name: celery-worker
+        env:
+        # Task parameters
+        - name: DJINSIGHT_BATCH_SIZE
+          value: "2000"
+        - name: DJINSIGHT_MAX_RECORDS
+          value: "50000"
+        - name: DJINSIGHT_SUMMARY_DAYS_BACK
+          value: "3"
+        - name: DJINSIGHT_CLEANUP_DAYS_TO_KEEP
+          value: "180"
+        
+        # Timeout configuration
+        - name: DJINSIGHT_PROCESS_TASK_TIME_LIMIT
+          value: "2400"  # 40 minutes
+        - name: DJINSIGHT_PROCESS_TASK_SOFT_TIME_LIMIT
+          value: "2100"  # 35 minutes
+        - name: DJINSIGHT_SUMMARY_TASK_TIME_LIMIT
+          value: "1200"  # 20 minutes
+        - name: DJINSIGHT_SUMMARY_TASK_SOFT_TIME_LIMIT
+          value: "900"   # 15 minutes
+        - name: DJINSIGHT_CLEANUP_TASK_TIME_LIMIT
+          value: "5400"  # 90 minutes
+        - name: DJINSIGHT_CLEANUP_TASK_SOFT_TIME_LIMIT
+          value: "5100"  # 85 minutes
 ```
 
 ## ⏰ Celery Schedule Settings

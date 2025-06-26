@@ -2,6 +2,7 @@ import json
 import logging
 from datetime import datetime, timedelta
 
+import environ
 from django.apps import apps
 from django.db import transaction
 from django.db.models import F
@@ -12,6 +13,9 @@ from .models import PageViewLog, PageViewSummary
 from .views import REDIS_KEY_PREFIX, redis_client
 
 logger = logging.getLogger(__name__)
+
+# Initialize environment variables
+env = environ.Env()
 
 # Try to import Celery - if not available, tasks will be regular functions
 try:
@@ -26,14 +30,34 @@ except ImportError:
     HAS_CELERY = False
 
 
-@shared_task(bind=True, max_retries=3, default_retry_delay=60)
-def process_page_views_task(self, batch_size=1000, max_records=10000):
+@shared_task(
+    bind=True,
+    max_retries=3,
+    default_retry_delay=60,
+    task_time_limit=env.int(
+        "DJINSIGHT_PROCESS_TASK_TIME_LIMIT", 1800
+    ),  # 30 minutes hard limit
+    task_soft_time_limit=env.int(
+        "DJINSIGHT_PROCESS_TASK_SOFT_TIME_LIMIT", 1500
+    ),  # 25 minutes soft limit
+)
+def process_page_views_task(
+    self,
+    batch_size=env.int("DJINSIGHT_BATCH_SIZE", 1000),
+    max_records=env.int("DJINSIGHT_MAX_RECORDS", 10000),
+):
     """
     Celery task to process page views from Redis and store them in the database.
 
     Args:
         batch_size (int): Number of records to process in a single transaction
+                         (uses DJINSIGHT_BATCH_SIZE env var, defaults to 1000)
         max_records (int): Maximum number of records to process in a single run
+                          (uses DJINSIGHT_MAX_RECORDS env var, defaults to 10000)
+
+    Environment Variables:
+        DJINSIGHT_PROCESS_TASK_TIME_LIMIT (int): Hard timeout in seconds (default: 1800 = 30 min)
+        DJINSIGHT_PROCESS_TASK_SOFT_TIME_LIMIT (int): Soft timeout in seconds (default: 1500 = 25 min)
 
     Returns:
         int: Number of records processed
@@ -48,13 +72,30 @@ def process_page_views_task(self, batch_size=1000, max_records=10000):
             raise
 
 
-@shared_task(bind=True, max_retries=3, default_retry_delay=60)
-def generate_daily_summaries_task(self, days_back=7):
+@shared_task(
+    bind=True,
+    max_retries=3,
+    default_retry_delay=60,
+    task_time_limit=env.int(
+        "DJINSIGHT_SUMMARY_TASK_TIME_LIMIT", 900
+    ),  # 15 minutes hard limit
+    task_soft_time_limit=env.int(
+        "DJINSIGHT_SUMMARY_TASK_SOFT_TIME_LIMIT", 720
+    ),  # 12 minutes soft limit
+)
+def generate_daily_summaries_task(
+    self, days_back=env.int("DJINSIGHT_SUMMARY_DAYS_BACK", 1)
+):
     """
     Celery task to generate daily page view summaries.
 
     Args:
         days_back (int): Number of days back to process
+                        (uses DJINSIGHT_SUMMARY_DAYS_BACK env var, defaults to 1)
+
+    Environment Variables:
+        DJINSIGHT_SUMMARY_TASK_TIME_LIMIT (int): Hard timeout in seconds (default: 900 = 15 min)
+        DJINSIGHT_SUMMARY_TASK_SOFT_TIME_LIMIT (int): Soft timeout in seconds (default: 720 = 12 min)
 
     Returns:
         int: Number of summaries generated
@@ -69,13 +110,30 @@ def generate_daily_summaries_task(self, days_back=7):
             raise
 
 
-@shared_task(bind=True, max_retries=3, default_retry_delay=60)
-def cleanup_old_data_task(self, days_to_keep=90):
+@shared_task(
+    bind=True,
+    max_retries=3,
+    default_retry_delay=60,
+    task_time_limit=env.int(
+        "DJINSIGHT_CLEANUP_TASK_TIME_LIMIT", 3600
+    ),  # 60 minutes hard limit
+    task_soft_time_limit=env.int(
+        "DJINSIGHT_CLEANUP_TASK_SOFT_TIME_LIMIT", 3300
+    ),  # 55 minutes soft limit
+)
+def cleanup_old_data_task(
+    self, days_to_keep=env.int("DJINSIGHT_CLEANUP_DAYS_TO_KEEP", 90)
+):
     """
     Celery task to cleanup old page view logs.
 
     Args:
         days_to_keep (int): Number of days of logs to keep
+                           (uses DJINSIGHT_CLEANUP_DAYS_TO_KEEP env var, defaults to 90)
+
+    Environment Variables:
+        DJINSIGHT_CLEANUP_TASK_TIME_LIMIT (int): Hard timeout in seconds (default: 3600 = 60 min)
+        DJINSIGHT_CLEANUP_TASK_SOFT_TIME_LIMIT (int): Soft timeout in seconds (default: 3300 = 55 min)
 
     Returns:
         int: Number of records deleted
@@ -90,13 +148,18 @@ def cleanup_old_data_task(self, days_to_keep=90):
             raise
 
 
-def process_page_views(batch_size=1000, max_records=10000):
+def process_page_views(
+    batch_size=env.int("DJINSIGHT_BATCH_SIZE", 1000),
+    max_records=env.int("DJINSIGHT_MAX_RECORDS", 10000),
+):
     """
     Process page views from Redis and store them in the database.
 
     Args:
         batch_size (int): Number of records to process in a single transaction
+                         (uses DJINSIGHT_BATCH_SIZE env var, defaults to 1000)
         max_records (int): Maximum number of records to process in a single run
+                          (uses DJINSIGHT_MAX_RECORDS env var, defaults to 10000)
 
     Returns:
         int: Number of records processed
@@ -297,12 +360,13 @@ def process_batch(keys):
     return processed_count
 
 
-def generate_daily_summaries(days_back=7):
+def generate_daily_summaries(days_back=env.int("DJINSIGHT_SUMMARY_DAYS_BACK", 7)):
     """
     Generate daily page view summaries from detailed logs.
 
     Args:
         days_back (int): Number of days back to process
+                        (uses DJINSIGHT_SUMMARY_DAYS_BACK env var, defaults to 7)
 
     Returns:
         int: Number of summaries generated
@@ -352,12 +416,13 @@ def generate_daily_summaries(days_back=7):
     return summaries_created
 
 
-def cleanup_old_data(days_to_keep=90):
+def cleanup_old_data(days_to_keep=env.int("DJINSIGHT_CLEANUP_DAYS_TO_KEEP", 90)):
     """
     Cleanup old page view logs older than specified days.
 
     Args:
         days_to_keep (int): Number of days of logs to keep
+                           (uses DJINSIGHT_CLEANUP_DAYS_TO_KEEP env var, defaults to 90)
 
     Returns:
         int: Number of records deleted
@@ -401,8 +466,8 @@ def cleanup_old_data(days_to_keep=90):
 # Management command functions (for manual execution)
 def run_process_page_views(verbosity=1, **options):
     """Function that can be called from management command"""
-    batch_size = options.get("batch_size", 1000)
-    max_records = options.get("max_records", 10000)
+    batch_size = options.get("batch_size", env.int("DJINSIGHT_BATCH_SIZE", 1000))
+    max_records = options.get("max_records", env.int("DJINSIGHT_MAX_RECORDS", 10000))
 
     if verbosity >= 1:
         print(
@@ -419,7 +484,7 @@ def run_process_page_views(verbosity=1, **options):
 
 def run_generate_summaries(verbosity=1, **options):
     """Function that can be called from management command"""
-    days_back = options.get("days_back", 7)
+    days_back = options.get("days_back", env.int("DJINSIGHT_SUMMARY_DAYS_BACK", 7))
 
     if verbosity >= 1:
         print(f"Generating daily summaries for the last {days_back} days")
@@ -434,7 +499,9 @@ def run_generate_summaries(verbosity=1, **options):
 
 def run_cleanup_old_data(verbosity=1, **options):
     """Function that can be called from management command"""
-    days_to_keep = options.get("days_to_keep", 90)
+    days_to_keep = options.get(
+        "days_to_keep", env.int("DJINSIGHT_CLEANUP_DAYS_TO_KEEP", 90)
+    )
 
     if verbosity >= 1:
         print(f"Cleaning up data older than {days_to_keep} days")

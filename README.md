@@ -207,6 +207,7 @@ Add tracking to your templates:
 - 🚀 Redis 4.0+
 - 🔄 Celery 5.0+
 - 📦 django-redis
+- 🌍 django-environ (for environment variable configuration)
 - 🌐 Optional: Wagtail 3.0+ (for Wagtail integration)
 
 ## 🔗 Links
